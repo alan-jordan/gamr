@@ -1,0 +1,51 @@
+body {
+  background-color: #59ADB7;
+  color: #171717;
+}
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+.header {
+  background-color: black;
+  border-radius: 5px;
+  margin-top: 5px;
+}
+.logo {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 34pt;
+}
+.header a:visited{
+  color: #E3AA55;
+}
+.header a:hover {
+  color: #59ADB7;
+}
+.gameInfo {
+  background-color: #222;
+  padding: 5px;
+  width: 90%;
+}
+
+.gameArt {
+  display: block;
+  margin-left: auto;
+  margin-right: auto
+}
+
+/*.gameInfo {
+  display: block;
+  margin-left: auto;
+  margin-right: auto
+}*/
+
+/* Coolors Exported Palette - coolors.co/d55339-e3aa55-59adb7-f5d8d4-171717 */
+
+.colors {
+  color: #D55339; /** medium vermillion **/
+  color: #E3AA55; /** sunray **/
+  color: #59ADB7; /** verdigis - blue **/
+  color: #F5D8D4; /** champagne pink **/
+  color: #171717; /** creepy black **/
+}
