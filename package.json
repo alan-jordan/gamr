@@ -1,8 +1,8 @@
 {
-  "name": "boilerplate-react-webpack",
-  "version": "0.1.1",
-  "description": "A webpack React starter",
-  "repository": "https://github.com/dev-academy-challenges/boilerplate-react-webpack.git",
+  "name": "gamr",
+  "version": "0.1.0",
+  "description": "A social network for gamers",
+  "repository": "https://github.com/alan-jordan/gamr.git",
   "main": "server/index.js",
   "scripts": {
     "start": "nodemon --watch server server/index & webpack --watch",
