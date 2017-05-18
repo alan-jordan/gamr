@@ -2,6 +2,7 @@ import React from 'react'
 import {HashRouter as Router, Route} from 'react-router-dom'
 import Header from './Header'
 import Home from './Home'
+import User from './User'
 
 const App = () => {
   return (
@@ -9,6 +10,7 @@ const App = () => {
       <div>
         <Header />
         <Route path="/" exact={true} component = {Home} />
+        <Route path="/user" component = {User} />
       </div>
     </Router>
   )
