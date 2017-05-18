@@ -69,3 +69,7 @@
 # Generate basic handlebars templates to render data
 
 # Look at front end styling
+
+# Re-working in react
+- [ ] Header
+- [ ] Main page
