@@ -1,6 +1,7 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
-
+import users from '../../data/users'
+console.log(users);
 const User = () => {
   return (
     <div classNameName="userPage">
