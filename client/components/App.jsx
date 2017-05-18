@@ -6,8 +6,10 @@ import Home from './Home'
 const App = () => {
   return (
     <Router>
-      <Header />
-      <Route path="/" component = {Home} />
+      <div>
+        <Header />
+        <Route path="/" exact={true} component = {Home} />
+      </div>
     </Router>
   )
 }
