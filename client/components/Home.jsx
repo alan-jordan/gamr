@@ -1,7 +1,21 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
+import users from '../../data/users'
 
 const Home = () => {
+
+  function mapUsers(users) {
+    return users.map((user) => {
+      return (
+        <span>
+          <li><img src='/images/site/favicon.ico'/></li>
+          <li><Link to={`/user/${user.id}`}>Username: {user.user_username}</Link></li>
+          <li>Latest Game:</li>
+        </span>
+      )
+    })
+  }
+
   return (
       <div className="row">
         <div className="col col-md-8 intro">
@@ -13,13 +27,10 @@ const Home = () => {
           <div className="newGamrs">
             <h2>New gamrs</h2>
               <ul>
-                <li>new gamer</li>
-                <li>new gamer</li>
+                {mapUsers(users)}
                 <li></li>
               </ul>
-
           </div>
-
         </div>
         <div className="col col-md-4">
           <h2>Cool stats</h2>
