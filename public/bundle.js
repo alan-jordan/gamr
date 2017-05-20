@@ -11057,9 +11057,9 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouterDom = __webpack_require__(37);
 
-var _Header = __webpack_require__(98);
+var _Layout = __webpack_require__(227);
 
-var _Header2 = _interopRequireDefault(_Header);
+var _Layout2 = _interopRequireDefault(_Layout);
 
 var _Home = __webpack_require__(99);
 
@@ -11068,6 +11068,10 @@ var _Home2 = _interopRequireDefault(_Home);
 var _User = __webpack_require__(100);
 
 var _User2 = _interopRequireDefault(_User);
+
+var _Library = __webpack_require__(228);
+
+var _Library2 = _interopRequireDefault(_Library);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -11078,9 +11082,10 @@ var App = function App() {
     _react2.default.createElement(
       'div',
       null,
-      _react2.default.createElement(_Header2.default, null),
+      _react2.default.createElement(_Layout2.default, null),
       _react2.default.createElement(_reactRouterDom.Route, { path: '/', exact: true, component: _Home2.default }),
-      _react2.default.createElement(_reactRouterDom.Route, { path: '/user/:id', component: _User2.default })
+      _react2.default.createElement(_reactRouterDom.Route, { path: '/user/:id', component: _User2.default }),
+      _react2.default.createElement(_reactRouterDom.Route, { path: '/user/:id/libraryview', component: _Library2.default })
     )
   );
 };
@@ -11098,74 +11103,7 @@ module.exports = __webpack_require__(136);
 
 
 /***/ }),
-/* 98 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _react = __webpack_require__(6);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactRouterDom = __webpack_require__(37);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var Header = function Header() {
-  return _react2.default.createElement(
-    'nav',
-    { className: 'navbar' },
-    _react2.default.createElement(
-      'div',
-      { className: 'container-fluid header ' },
-      _react2.default.createElement(
-        'div',
-        { className: 'navbar-header' },
-        _react2.default.createElement(
-          'a',
-          { className: 'logo navbar-brand', href: '/' },
-          'gamr'
-        )
-      ),
-      _react2.default.createElement(
-        'ul',
-        { className: 'nav navbar-nav navbar-right' },
-        _react2.default.createElement(
-          'li',
-          null,
-          _react2.default.createElement(
-            'a',
-            { href: '#' },
-            'Login'
-          )
-        ),
-        _react2.default.createElement(
-          'form',
-          { className: 'navbar-form navbar-left' },
-          _react2.default.createElement(
-            'div',
-            { className: 'form-group' },
-            _react2.default.createElement('input', { type: 'text', className: 'form-control', placeholder: 'Search' })
-          ),
-          _react2.default.createElement(
-            'button',
-            { type: 'submit', className: 'btn btn-default' },
-            'Submit'
-          )
-        )
-      )
-    )
-  );
-};
-
-exports.default = Header;
-
-/***/ }),
+/* 98 */,
 /* 99 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -11205,7 +11143,7 @@ var Home = function Home() {
           null,
           _react2.default.createElement(
             _reactRouterDom.Link,
-            { to: '/user/' + user.id },
+            { to: '/user/' + user.id + '/libraryview' },
             'Username: ',
             user.user_username
           )
@@ -11222,6 +11160,30 @@ var Home = function Home() {
   return _react2.default.createElement(
     'div',
     { className: 'row' },
+    _react2.default.createElement(
+      'div',
+      { className: 'col col-md-4' },
+      _react2.default.createElement(
+        'h2',
+        null,
+        'Cool stats'
+      ),
+      _react2.default.createElement(
+        'h3',
+        null,
+        'Most popular games'
+      ),
+      _react2.default.createElement(
+        'h3',
+        null,
+        'Most popular systems'
+      ),
+      _react2.default.createElement(
+        'h3',
+        null,
+        'Most popular genres'
+      )
+    ),
     _react2.default.createElement(
       'div',
       { className: 'col col-md-8 intro' },
@@ -11249,30 +11211,6 @@ var Home = function Home() {
           mapUsers(_users2.default),
           _react2.default.createElement('li', null)
         )
-      )
-    ),
-    _react2.default.createElement(
-      'div',
-      { className: 'col col-md-4' },
-      _react2.default.createElement(
-        'h2',
-        null,
-        'Cool stats'
-      ),
-      _react2.default.createElement(
-        'h3',
-        null,
-        'Most popular games'
-      ),
-      _react2.default.createElement(
-        'h3',
-        null,
-        'Most popular systems'
-      ),
-      _react2.default.createElement(
-        'h3',
-        null,
-        'Most popular genres'
       )
     )
   );
@@ -11314,84 +11252,75 @@ var User = function User(_ref) {
     { className: 'userPage' },
     _react2.default.createElement(
       'div',
-      { className: 'row' },
+      { className: 'userInfo' },
+      _react2.default.createElement('img', { src: '/images/users/image' }),
       _react2.default.createElement(
-        'div',
-        { className: 'col col-md-8' },
-        'a'
+        'ul',
+        null,
+        _react2.default.createElement(
+          'li',
+          { className: 'userInfoList' },
+          'Username: ',
+          user.user_username
+        ),
+        _react2.default.createElement(
+          'li',
+          { className: 'userInfoList' },
+          'Real name: ',
+          user.user_first_name,
+          ' ',
+          user.user_surname
+        ),
+        _react2.default.createElement(
+          'li',
+          { className: 'userInfoList' },
+          'Systems owned: '
+        ),
+        _react2.default.createElement(
+          'li',
+          { className: 'userInfoList' },
+          'Date joined: ',
+          user.user_date_registered
+        )
       ),
       _react2.default.createElement(
-        'div',
-        { className: 'userInfo col col-md-4' },
-        _react2.default.createElement('img', { src: '/images/users/image' }),
+        'ul',
+        null,
         _react2.default.createElement(
-          'ul',
+          'li',
+          null,
+          '------'
+        ),
+        _react2.default.createElement(
+          'li',
+          null,
+          'Do stuff'
+        ),
+        _react2.default.createElement(
+          'li',
           null,
           _react2.default.createElement(
-            'li',
-            { className: 'userInfoList' },
-            'Username: ',
-            user.user_username
-          ),
-          _react2.default.createElement(
-            'li',
-            { className: 'userInfoList' },
-            'Real name: ',
-            user.user_first_name,
-            ' ',
-            user.user_surname
-          ),
-          _react2.default.createElement(
-            'li',
-            { className: 'userInfoList' },
-            'Systems owned: '
-          ),
-          _react2.default.createElement(
-            'li',
-            { className: 'userInfoList' },
-            'Date joined: ',
-            user.user_date_registered
+            'a',
+            { href: '/user/' + user.id + '/games/add' },
+            'add game'
           )
         ),
         _react2.default.createElement(
-          'ul',
+          'li',
           null,
           _react2.default.createElement(
-            'li',
-            null,
-            '------'
-          ),
+            'a',
+            { href: '/user/' + user.id + '/edit' },
+            'edit user info'
+          )
+        ),
+        _react2.default.createElement(
+          'li',
+          null,
           _react2.default.createElement(
-            'li',
-            null,
-            'Do stuff'
-          ),
-          _react2.default.createElement(
-            'li',
-            null,
-            _react2.default.createElement(
-              'a',
-              { href: '/user/' + user.id + '/games/add' },
-              'add game'
-            )
-          ),
-          _react2.default.createElement(
-            'li',
-            null,
-            _react2.default.createElement(
-              'a',
-              { href: '/user/' + user.id + '/edit' },
-              'edit user info'
-            )
-          ),
-          _react2.default.createElement(
-            'li',
-            null,
-            _react2.default.createElement(
-              'a',
-              { href: '/' },
-              'home'
-            )
+            'a',
+            { href: '/' },
+            'home'
           )
         )
       )
@@ -25712,6 +25641,228 @@ var valueEqual = function valueEqual(a, b) {
 };
 
 exports.default = valueEqual;
+
+/***/ }),
+/* 227 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(6);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRouterDom = __webpack_require__(37);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Layout = function Layout() {
+  return _react2.default.createElement(
+    'div',
+    { className: 'header ' },
+    _react2.default.createElement(
+      'a',
+      { className: 'logo navbar-brand', href: '/' },
+      'gamr'
+    ),
+    _react2.default.createElement(
+      'ul',
+      { className: 'nav navbar-nav navbar-right' },
+      _react2.default.createElement(
+        'li',
+        null,
+        _react2.default.createElement(
+          'a',
+          { href: '#' },
+          'Login'
+        )
+      ),
+      _react2.default.createElement(
+        'form',
+        { className: 'navbar-form navbar-left' },
+        _react2.default.createElement(
+          'div',
+          { className: 'searchBar' },
+          _react2.default.createElement('input', { type: 'text', className: 'form-control', placeholder: 'Search' })
+        ),
+        _react2.default.createElement(
+          'button',
+          { type: 'submit', className: 'btn btn-default' },
+          'Submit'
+        )
+      )
+    )
+  );
+};
+
+exports.default = Layout;
+
+/***/ }),
+/* 228 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(6);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRouterDom = __webpack_require__(37);
+
+var _users = __webpack_require__(62);
+
+var _users2 = _interopRequireDefault(_users);
+
+var _games = __webpack_require__(229);
+
+var _games2 = _interopRequireDefault(_games);
+
+var _userGames = __webpack_require__(230);
+
+var _userGames2 = _interopRequireDefault(_userGames);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Library = function Library(_ref) {
+  var match = _ref.match;
+
+  var user = _users2.default.find(function (user) {
+    return user.id = match.params.id;
+  });
+  var currentUsersGames = _userGames2.default.filter(function (userGame) {
+    return userGame.user_id == user.id;
+  });
+  var defCurrentUsersGames = currentUsersGames.map(function (game) {
+    return getGamesDetails(_games2.default, game.id);
+  });
+
+  function getGamesDetails(games, game_id) {
+    return games.filter(function (game) {
+      return game.id == game_id;
+    });
+  }
+  function renderGamesLib(usersGames) {
+    return usersGames.map(function (game) {
+      return _react2.default.createElement(
+        'div',
+        { className: 'thumb' },
+        _react2.default.createElement('img', { src: '' })
+      );
+    });
+  }
+
+  return _react2.default.createElement(
+    'div',
+    { className: 'library' },
+    _react2.default.createElement(
+      'div',
+      { className: 'libraryHeader' },
+      user.user_username,
+      '\'s Games'
+    ),
+    renderGamesLib(currentUsersGames)
+  );
+};
+
+exports.default = Library;
+
+/***/ }),
+/* 229 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var games = [{
+  "id": 88801,
+  "game_name": "The Legend of Zelda: Breath of the Wild",
+  "game_publisher_id": 2,
+  "game_release_date": "2017-03-03",
+  "game_box_art": "/images/games/88801.jpg",
+  "game_series_id": 1
+}, {
+  "id": 88802,
+  "game_name": "Super Marios Bros",
+  "game_publisher_id": 2,
+  "game_release_date": "1982-04-22",
+  "game_box_art": "/images/games/88802.jpg",
+  "game_series_id": 2
+}, {
+  "id": 88803,
+  "game_name": "Sonic the Hedgehog",
+  "game_publisher_id": 1,
+  "game_release_date": "1991-06-23",
+  "game_box_art": "/images/games/88803.jpg",
+  "game_series_id": 3
+}];
+
+exports.default = games;
+
+/***/ }),
+/* 230 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var userGames = [{
+  "id": 1,
+  "user_id": 99901,
+  "game_id": 88801,
+  "date_purchased": "2017-03-03",
+  "date_sold": null,
+  "system_purchased_on_id": 1,
+  "ownership_status_id": 1
+}, {
+  "id": 2,
+  "user_id": 99901,
+  "game_id": 88802,
+  "date_purchased": "1984-05-22",
+  "date_sold": "1989-05-22",
+  "system_purchased_on_id": 2,
+  "ownership_status_id": 2
+}, {
+  "id": 3,
+  "user_id": 99901,
+  "game_id": 88803,
+  "date_purchased": "1991-06-23",
+  "date_sold": "2001-09-23",
+  "system_purchased_on_id": 3,
+  "ownership_status_id": 2
+}, {
+  "id": 4,
+  "user_id": 99902,
+  "game_id": 88801,
+  "date_purchased": "2017-03-05",
+  "date_sold": null,
+  "system_purchased_on_id": 1,
+  "ownership_status_id": 1
+}, {
+  "id": 5,
+  "user_id": 99903,
+  "game_id": 88802,
+  "date_purchased": "1992-04-22",
+  "date_sold": null,
+  "system_purchased_on_id": 2,
+  "ownership_status_id": 1
+}];
+exports.default = userGames;
 
 /***/ })
 /******/ ]);
