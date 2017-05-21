@@ -69,4 +69,19 @@
 
 # Look at front end styling
 
-# Sunday
+# API Stuff 
+- [ ] Add form needs to use API
+- [ ] Add form needs to automagically download boxart and save as ${id}.jpg
+- [ ] Add form needs to allow user to select what platform they bought game on.
+- [ ] User form needs to list what systems they own
+
+# Metrics
+- [ ] Need a pie chart of what systems a user owns games for
+- [ ] Need to be able to produce reports based on a time. Eg, I have bought x games over the past x months on which systems.
+- [ ] Need to record whether a game is physically or digitally owned.
+
+# Stretch stuff
+- [ ] Allow a user to mark a game as completed
+- [ ] Allow a user to add x amount of time against a game
+- [ ] Allow a user to comment on a game, which will appear on that game, not userGame.
+- [ ] Allow logins!

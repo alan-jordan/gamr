@@ -25,14 +25,14 @@ class AddGame extends React.Component {
   }
   render() {
     return (
-      <span>
+      <div className="right-bar">
         <h3>Add Game</h3>
         <form onSubmit={(evt) => this.handleSubmit(evt)}>
           <label>Game name: </label>
           <input type='text' name='game_name' placeholder = "New game" onChange={(evt =>this.handleChange(evt))}/>
           <input type='submit' value="Add to library"/>
         </form>
-      </span>
+      </div>
     )
   }
 }

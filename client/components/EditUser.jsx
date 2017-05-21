@@ -36,7 +36,7 @@ class EditUser extends React.Component {
           <input type='text' name='user_first_name' placeholder = "First Name" onChange={(evt =>this.handleChange(evt))}/>
           <label>Surname: </label>
           <input type='text' name='user_surname' placeholder = "Surname" onChange={(evt =>this.handleChange(evt))}/>
-          <input type='submit' value="Add to library"/>
+          <input type='submit' value="Save"/>
         </form>
       </span>
     )
