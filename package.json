@@ -5,7 +5,7 @@
   "repository": "https://github.com/alan-jordan/gamr.git",
   "main": "server/index.js",
   "scripts": {
-    "start": "node server server/index & webpack --watch",
+    "start": "node server server/index",
     "dev": "nodemon --watch server server/index & webpack --watch",
     "test": "tape -r babel-register 'test/**/*.test.js' | tap-diff",
     "watch": "nodemon -e js,jsx -x npm test"
