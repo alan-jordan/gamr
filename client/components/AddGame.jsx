@@ -1,5 +1,6 @@
  import React from 'react'
 import {Link} from 'react-router-dom'
+import User from './User'
 import users from '../../data/users'
 import games from '../../data/games'
 import userGames from '../../data/userGames'
@@ -10,7 +11,7 @@ class AddGame extends React.Component {
     this.state = {
       userGame: {
         game_name: '',
-        user_id: ''
+        user_id: props.match.params.id
       }
     }
   }
@@ -25,13 +26,18 @@ class AddGame extends React.Component {
   }
   render() {
     return (
-      <div className="right-bar">
-        <h3>Add Game</h3>
-        <form onSubmit={(evt) => this.handleSubmit(evt)}>
-          <label>Game name: </label>
-          <input type='text' name='game_name' placeholder = "New game" onChange={(evt =>this.handleChange(evt))}/>
-          <input type='submit' value="Add to library"/>
-        </form>
+      <div className="row">
+        <div className="col-md-4">
+          <User user_id={this.state.userGame.user_id}/>
+        </div>
+        <div className="col-md-8">
+          <h3>Add Game</h3>
+          <form onSubmit={(evt) => this.handleSubmit(evt)}>
+            <label>Game name: </label>
+            <input type='text' name='game_name' placeholder = "New game" onChange={(evt =>this.handleChange(evt))}/>
+            <input type='submit' value="Add to library"/>
+          </form>
+        </div>
       </div>
     )
   }

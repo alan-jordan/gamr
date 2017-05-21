@@ -1,5 +1,6 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
+import User from './User'
 import users from '../../data/users'
 import games from '../../data/games'
 import userGames from '../../data/userGames'
@@ -21,20 +22,30 @@ const Library = ({match}) => {
     return usersGames.map((game) => {
       let gameDetails = getGame(game.game_id)
       return (
-        <div className="thumb">
-          <img src={gameDetails.game_box_art}/>
-          <p>{gameDetails.game_name}</p>
+        <div className="col-lg-3 col-md-4 col-xs-6 thumb">
+            <div className="thumbnail" >
+              <a href={`/game/${game.game_id}`}>
+                <img src={gameDetails.game_box_art} className="img-responsive" alt={gameDetails.game_name} />
+                <p>{game.game_name}</p>
+              </a>
+              <a href="/user">Edit status</a>
+            </div>
         </div>
       )
     })
   }
 
   return (
-    <div className="library">
-      <div className="libraryHeader">
-        {user.user_username}'s Games
+    <div className="row">
+      <div className="col-md-4">
+        <User user_id={match.params.id}/>
       </div>
-      {renderGamesLib(currentUsersGames)}
+      <div className="col-md-8">
+        <div className="libraryHeader">
+          {user.user_username}'s Games
+        </div>
+        {renderGamesLib(currentUsersGames)}
+      </div>
     </div>
   )
 }

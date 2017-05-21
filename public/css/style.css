@@ -7,20 +7,12 @@ ul {
   margin: 0;
   padding: 0;
 }
-.container {
-  width: 1170px;
-  margin: auto;
-}
+
 .main-window, .user-page {
   display: flex;
   flex-direction: row;
 }
-.left-bar {
-  /*flex-basis: 40%;*/
-}
-.right-bar {
-  /*flex-basis: 40%;*/
-}
+
 .header {
   background-color: #D55339;
   border-radius: 5px;

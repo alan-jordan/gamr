@@ -2,11 +2,12 @@ import React from 'react'
 import {Link} from 'react-router-dom'
 import users from '../../data/users'
 
-const User = ({match}) => {
-  const user = users.find(user => {return user.id == match.params.id})
+const User = (props) => {
+
+  const id = props.user_id || props.match.params.id
+  const user = users.find(user => {return user.id == id})
   return (
-    <div className="userPage">
-      <div className = "userInfo left-bar">
+      <div className = "userInfo">
         <img className="user_image" src={user.user_image}/>
         <ul>
             <li className="userInfoList">Username: {user.user_username}</li>
@@ -23,7 +24,6 @@ const User = ({match}) => {
             <li><a href="/#/">home</a></li>
           </ul>
       </div>
-    </div>
   )
 }
 

@@ -17,30 +17,27 @@ const Home = () => {
   }
 
   return (
-        <span>
-          <div className="main-window">
-            <div className="left-bar">
+        <div className="row">
+          <div className="col-md-4">
               <h2>Cool stats</h2>
               <h3 >Most popular games</h3>
               <h3 >Most popular systems</h3>
               <h3 >Most popular genres</h3>
-            </div>
-            <div className="right-bar">
-              <h2>Welcome to gamr</h2>
-              <p>
+          </div>
+          <div className="col-md-8">
+            <h2>Welcome to gamr</h2>
+            <p>
               We are a community of gamers from around the world who love to show off our games collections
               and talk about them to other gamers.
-              </p>
-              <div className="newGamrs">
-                <h2>New gamrs</h2>
-                  <ul>
-                    {mapUsers(users)}
-                    <li></li>
-                  </ul>
-              </div>
+            </p>
+            <div className="newGamrs">
+              <h2>New gamrs</h2>
+              <ul>
+                {mapUsers(users)}
+              </ul>
             </div>
           </div>
-        </span>
+        </div>
   )
 }
 
