@@ -4,7 +4,6 @@ import users from '../../data/users'
 
 const User = ({match}) => {
   const user = users.find(user => {return user.id == match.params.id})
-  console.log(user);
   return (
     <div className="userPage">
       <div className = "userInfo left-bar">
@@ -20,6 +19,7 @@ const User = ({match}) => {
             <li>Do stuff</li>
             <li><a href={`/#/users/${user.id}/games/add`}>add game</a></li>
             <li><a href={`/#/users/${user.id}/edit`}>edit user info</a></li>
+            <li><a href={`/#/users/${user.id}/libraryview`}>view library</a></li>
             <li><a href="/#/">home</a></li>
           </ul>
       </div>
