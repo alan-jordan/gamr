@@ -7,6 +7,20 @@ ul {
   margin: 0;
   padding: 0;
 }
+.container {
+  width: 1170px;
+  margin: auto;
+}
+.main-window, .user-page {
+  display: flex;
+  flex-direction: row;
+}
+.left-bar {
+  /*flex-basis: 40%;*/
+}
+.right-bar {
+  /*flex-basis: 40%;*/
+}
 .header {
   background-color: #D55339;
   border-radius: 5px;
@@ -37,11 +51,11 @@ ul {
 .library {
   flex-wrap: wrap;
 }
-/*.gameInfo {
-  display: block;
-  margin-left: auto;
-  margin-right: auto
-}*/
+.user_image {
+  height: 150px;
+  width: 150px;
+}
+
 
 /* Coolors Exported Palette - coolors.co/d55339-e3aa55-59adb7-f5d8d4-171717 */
 

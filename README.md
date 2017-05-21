@@ -24,6 +24,7 @@
 - "I want to add new games to this list."
 - "I want a wishlist of future titles that I would like to own."
 - "I would like stats on what kind of games I am buying, eg. More physical games, what system etc?"
+- "I want to be able to display charts around stats."
 - "I want to be able to keep a track of whether I have finished a game or not."
 - "I want to be able to share my library with my friends."
 - "I want to connect to other social networks to post information about my games."
@@ -66,10 +67,6 @@
 
 # Write back end, db stuff - TDD!!
 
-# Generate basic handlebars templates to render data
-
 # Look at front end styling
 
-# Re-working in react
-- [ ] Header
-- [ ] Main page
+# Sunday

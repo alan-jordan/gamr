@@ -11,8 +11,8 @@ const App = () => {
       <div>
         <Layout />
         <Route path="/" exact={true} component = {Home} />
-        <Route path="/user/:id" component = {User} />
-        <Route path="/user/:id/libraryview" component = {Library} />
+        <Route path="/users/:id" component = {User} />
+        <Route path="/users/:id/libraryview" component = {Library} />
       </div>
     </Router>
   )
