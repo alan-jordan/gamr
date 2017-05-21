@@ -8,11 +8,6 @@ ul {
   padding: 0;
 }
 
-.main-window, .user-page {
-  display: flex;
-  flex-direction: row;
-}
-
 .header {
   background-color: #D55339;
   border-radius: 5px;
@@ -40,9 +35,7 @@ ul {
   margin-right: auto
 }
 
-.library {
-  flex-wrap: wrap;
-}
+
 .user_image {
   height: 150px;
   width: 150px;

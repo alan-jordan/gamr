@@ -1,5 +1,7 @@
  import React from 'react'
 import {Link} from 'react-router-dom'
+import User from './User'
+
 import users from '../../data/users'
 import games from '../../data/games'
 import userGames from '../../data/userGames'
@@ -27,18 +29,23 @@ class EditUser extends React.Component {
   }
   render() {
     return (
-      <span>
-        <h3>Edit User</h3>
-        <form onSubmit={(evt) => this.handleSubmit(evt)}>
-          <label>Username: </label>
-          <input type='text' name='user_username' placeholder = "Username" onChange={(evt =>this.handleChange(evt))}/>
-          <label>First name: </label>
-          <input type='text' name='user_first_name' placeholder = "First Name" onChange={(evt =>this.handleChange(evt))}/>
-          <label>Surname: </label>
-          <input type='text' name='user_surname' placeholder = "Surname" onChange={(evt =>this.handleChange(evt))}/>
-          <input type='submit' value="Save"/>
-        </form>
-      </span>
+        <div className="row">
+          <div className="col-md-4">
+            <User user_id={this.state.user.user_id}/>
+          </div>
+        <div className="col-md-8">
+          <h3>Edit User</h3>
+          <form onSubmit={(evt) => this.handleSubmit(evt)}>
+            <label>Username: </label>
+            <input type='text' name='user_username' placeholder = "Username" onChange={(evt =>this.handleChange(evt))}/>
+            <label>First name: </label>
+            <input type='text' name='user_first_name' placeholder = "First Name" onChange={(evt =>this.handleChange(evt))}/>
+            <label>Surname: </label>
+            <input type='text' name='user_surname' placeholder = "Surname" onChange={(evt =>this.handleChange(evt))}/>
+            <input type='submit' value="Save"/>
+          </form>
+        </div>
+      </div>
     )
   }
 }

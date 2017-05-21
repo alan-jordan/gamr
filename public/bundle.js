@@ -11456,6 +11456,10 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouterDom = __webpack_require__(18);
 
+var _User = __webpack_require__(40);
+
+var _User2 = _interopRequireDefault(_User);
+
 var _users = __webpack_require__(25);
 
 var _users2 = _interopRequireDefault(_users);
@@ -11513,43 +11517,52 @@ var EditUser = function (_React$Component) {
       var _this2 = this;
 
       return _react2.default.createElement(
-        'span',
-        null,
+        'div',
+        { className: 'row' },
         _react2.default.createElement(
-          'h3',
-          null,
-          'Edit User'
+          'div',
+          { className: 'col-md-4' },
+          _react2.default.createElement(_User2.default, { user_id: this.state.user.user_id })
         ),
         _react2.default.createElement(
-          'form',
-          { onSubmit: function onSubmit(evt) {
-              return _this2.handleSubmit(evt);
-            } },
+          'div',
+          { className: 'col-md-8' },
           _react2.default.createElement(
-            'label',
+            'h3',
             null,
-            'Username: '
+            'Edit User'
           ),
-          _react2.default.createElement('input', { type: 'text', name: 'user_username', placeholder: 'Username', onChange: function onChange(evt) {
-              return _this2.handleChange(evt);
-            } }),
           _react2.default.createElement(
-            'label',
-            null,
-            'First name: '
-          ),
-          _react2.default.createElement('input', { type: 'text', name: 'user_first_name', placeholder: 'First Name', onChange: function onChange(evt) {
-              return _this2.handleChange(evt);
-            } }),
-          _react2.default.createElement(
-            'label',
-            null,
-            'Surname: '
-          ),
-          _react2.default.createElement('input', { type: 'text', name: 'user_surname', placeholder: 'Surname', onChange: function onChange(evt) {
-              return _this2.handleChange(evt);
-            } }),
-          _react2.default.createElement('input', { type: 'submit', value: 'Save' })
+            'form',
+            { onSubmit: function onSubmit(evt) {
+                return _this2.handleSubmit(evt);
+              } },
+            _react2.default.createElement(
+              'label',
+              null,
+              'Username: '
+            ),
+            _react2.default.createElement('input', { type: 'text', name: 'user_username', placeholder: 'Username', onChange: function onChange(evt) {
+                return _this2.handleChange(evt);
+              } }),
+            _react2.default.createElement(
+              'label',
+              null,
+              'First name: '
+            ),
+            _react2.default.createElement('input', { type: 'text', name: 'user_first_name', placeholder: 'First Name', onChange: function onChange(evt) {
+                return _this2.handleChange(evt);
+              } }),
+            _react2.default.createElement(
+              'label',
+              null,
+              'Surname: '
+            ),
+            _react2.default.createElement('input', { type: 'text', name: 'user_surname', placeholder: 'Surname', onChange: function onChange(evt) {
+                return _this2.handleChange(evt);
+              } }),
+            _react2.default.createElement('input', { type: 'submit', value: 'Save' })
+          )
         )
       );
     }
