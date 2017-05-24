@@ -33,10 +33,10 @@ router.put('/users/:id/update', (req, res) => {
     })
 })
 
-router.get('/user/:id/edit', (req, res) => {
-  db.getUser(req.params.id, req.app.get('connection')).first()
-    .then((user) => {
-      res.render('users/edit', user)
+router.post('/users/add', (req, res) => {
+  db.addUser(userObj, connection)
+    .then(() => {
+      res.sendStatus(201)
     })
     .catch(function (err) {
       res.status(500).send('DATABASE ERROR: ' + err.message)

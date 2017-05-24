@@ -20,10 +20,30 @@ test('GET /users/:id', (t) => {
         resolve()
       })
     })
-
 })
 
-test('Post to /users/:id/update works', (t) => {
+test('POST to /users/add', (t) => {
+  const addedUser = {
+    user_username: 'strongSafety',
+    user_first_name: 'Eric',
+    user_surname: 'Reid'
+  }
+  return request(t.context.app)
+    .post('/api-v1/users')
+    .send(addedUser)
+    .expect(201)
+    .then(() => {
+      return t.context.connection('users').select()
+    })
+    .then((users) => {
+      return new Promise((resolve, reject) => {
+        t.is(users.length, 4)
+        resolve()
+      })
+    })
+})
+
+test('Put to /users/:id/update works', (t) => {
   const updatedUser = {
     user_username: 'Ziggy',
     user_first_name: 'Ginger',
@@ -34,26 +54,26 @@ test('Post to /users/:id/update works', (t) => {
     .put('/api-v1/users/99903/update')
     .send(updatedUser)
     .expect(204)
-    .then((res) => {
+    .then(() => {
       return t.context.connection('users').where('id',updatedUser.id).first()
-        .then((user) => {
-          return new Promise((resolve, reject) => {
-            t.is(user.user_username, "Ziggy")
-            t.is(user.user_first_name, "Ginger")
-            t.is(user.user_surname, "Cat")
-            resolve()
-          })
+    })
+    .then((user) => {
+      return new Promise((resolve, reject) => {
+        t.is(user.user_username, "Ziggy")
+        t.is(user.user_first_name, "Ginger")
+        t.is(user.user_surname, "Cat")
+        resolve()
       })
     })
 })
 
-
+//games
 test('Get /game/:id works', (t) => {
   return request(t.context.app)
     .get('/api-v1/games/88801')
     .expect(200)
     .then((res) => {
-      new Promise((resolve, reject) => {
+      return new Promise((resolve, reject) => {
         const gameJSON = JSON.parse(res.text)
         t.is(gameJSON.game.game_name, 'The Legend of Zelda: Breath of the Wild')
         resolve()

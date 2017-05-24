@@ -21,22 +21,13 @@ function getUser (id, connection) {
 
 function addUser (userObj, connection) {
   return connection('users')
-  .insert({
-    user_username: userObj.user_username,
-    user_first_name: userObj.user_first_name,
-    user_surname: userObj.user_surname,
-    user_dob: userObj.user_dob
-  })
+    .insert(userObj)
 }
 
 function updateUser(id, userObj, connection) {
   return connection('users')
     .where('id', id)
-    .update({
-      user_username: userObj.user_username,
-      user_first_name: userObj.user_first_name,
-      user_surname: userObj.user_surname
-    })
+    .update(userObj)
 }
 
 function deleteUser(id, connection) {
