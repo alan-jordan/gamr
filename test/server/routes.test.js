@@ -23,12 +23,37 @@ test('GET /users/:id', (t) => {
 
 })
 
+test('Post to /users/:id/update works', (t) => {
+  const updatedUser = {
+    user_username: 'Ziggy',
+    user_first_name: 'Ginger',
+    user_surname: 'Cat',
+    id: 99903
+  }
+  return request(t.context.app)
+    .put('/api-v1/users/99903/update')
+    .send(updatedUser)
+    .expect(204)
+    .then((res) => {
+      return t.context.connection('users').where('id',updatedUser.id).first()
+        .then((user) => {
+          return new Promise((resolve, reject) => {
+            t.is(user.user_username, "Ziggy")
+            t.is(user.user_first_name, "Ginger")
+            t.is(user.user_surname, "Cat")
+            resolve()
+          })
+      })
+    })
+})
+
+
 test('Get /game/:id works', (t) => {
   return request(t.context.app)
     .get('/api-v1/games/88801')
     .expect(200)
     .then((res) => {
-      return new Promise((resolve, reject) => {
+      new Promise((resolve, reject) => {
         const gameJSON = JSON.parse(res.text)
         t.is(gameJSON.game.game_name, 'The Legend of Zelda: Breath of the Wild')
         resolve()
@@ -69,35 +94,10 @@ test('Post to /user/99901/games/add works', (t) => {
       t.context.connection('games').select()
         .then((games) => {
           new Promise((resolve, reject) => {
-            console.log(games);
             t.is(games.length, 4)
             resolve()
           })
         })
       })
 
-})
-
-test('Post to /edit returns a redirect and edit form works', (t) => {
-  const editedUser = {
-    user_username: 'Ziggy',
-    user_first_name: 'Ginger',
-    user_surname: 'Cat',
-    id: 99903
-  }
-  return request(t.context.app)
-    .post('/api-v1/users/99903/edit')
-    .send(editedUser)
-    .expect(302)
-    .then((res) => {
-      return t.context.connection('users').where('id',editedUser.id).first()
-        .then((user) => {
-          return new Promise((resolve, reject) => {
-            t.is(user.user_username, "Ziggy")
-            t.is(user.user_first_name, "Ginger")
-            t.is(user.user_surname, "Cat")
-            resolve()
-          })
-      })
-    })
 })
