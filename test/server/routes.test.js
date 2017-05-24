@@ -6,6 +6,7 @@ var createServer = require('../../server/server')
 var configureDatabase = require('./helpers/database-config')
 configureDatabase(test, createServer)
 
+//USERS
 test('GET /users/:id', (t) => {
   return request(t.context.app)
     .get('/api-v1/users/99901')
@@ -35,6 +36,7 @@ test('Get /game/:id works', (t) => {
     })
 })
 
+//userGames
 test('Get /users/:id:/games', (t) => {
   return request(t.context.app)
     .get('/api-v1/users/99901/games')

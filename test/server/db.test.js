@@ -5,14 +5,31 @@ configureDatabase(test)
 
 var db = require('../../server/db')
 
-test('getUsers gets all users', function (t) {
+//users
+test('addUser adds a user', (t) => {
+  const addedUser = {
+    user_username: 'the d0n',
+    user_first_name: "Donald",
+    user_surname: "Drumpf",
+    user_dob: "1946-06-14"
+  }
+  return db.addUser(addedUser, t.context.connection)
+    .then((res) => {
+      return new Promise((resolve, reject) => {
+        t.is(res[0], 99904)
+        resolve()
+      })
+    })
+})
+
+test('getUsers gets all users', (t) => {
   // One for each letter of the alphabet!
-  var expected = 3
+
   return db.getUsers(t.context.connection)
     .then(function (result) {
       return new Promise((resolve, reject) => {
         var actual = result.length
-        t.is(expected, actual)
+        t.is(actual, 3)
         resolve()
       })
     })
@@ -71,13 +88,13 @@ test('getUserGames gets the right games', (t) => {
     })
 })
 
-test('editUser edits the user correctly', (t) => {
+test('updateUser edits the user correctly', (t) => {
   let userObj = {
     user_username:'Bob the Builder',
     user_first_name: 'Bob',
     user_surname: 'Builder'
   }
-  return db.editUser(99902, userObj, t.context.connection)
+  return db.updateUser(99902, userObj, t.context.connection)
     .then(() => {
       return db.getUser(99902, t.context.connection).first()
         .then((user) => {
@@ -87,6 +104,13 @@ test('editUser edits the user correctly', (t) => {
           })
       })
   })
+})
+
+test('deleteUser deletes a user', (t) => {
+  return db.deleteUser(99903, t.context.connection)
+    .then((res) => {
+      t.is(res, 1)
+    })
 })
 
 test('addGames adds a game to the users collection', (t) => {

@@ -4,8 +4,10 @@ module.exports = {
   getGame: getGame,
   getGames: getGames,
   getUserGames: getUserGames,
-  editUser: editUser,
+  updateUser: updateUser,
   addGame: addGame,
+  addUser: addUser,
+  deleteUser: deleteUser,
   viewGameOwned: viewGameOwned
 }
 
@@ -15,6 +17,32 @@ function getUsers (connection) {
 
 function getUser (id, connection) {
   return connection('users').where('id', id)
+}
+
+function addUser (userObj, connection) {
+  return connection('users')
+  .insert({
+    user_username: userObj.user_username,
+    user_first_name: userObj.user_first_name,
+    user_surname: userObj.user_surname,
+    user_dob: userObj.user_dob
+  })
+}
+
+function updateUser(id, userObj, connection) {
+  return connection('users')
+    .where('id', id)
+    .update({
+      user_username: userObj.user_username,
+      user_first_name: userObj.user_first_name,
+      user_surname: userObj.user_surname
+    })
+}
+
+function deleteUser(id, connection) {
+  return connection('users')
+    .where('id', id)
+    .del()
 }
 
 function getGame (id, connection) {
@@ -31,15 +59,7 @@ function getUserGames(user_id, connection) {
     .join('games', "games.id","=","game_id")
 }
 
-function editUser(id, userObj, connection) {
-  return connection('users')
-    .where('id', id)
-    .update({
-      user_username: userObj.user_username,
-      user_first_name: userObj.user_first_name,
-      user_surname: userObj.user_surname
-    })
-}
+
 
 function addGame(user_id, gameObj, connection) {
   return connection('games')
