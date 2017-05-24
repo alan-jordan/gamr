@@ -2,6 +2,7 @@ module.exports = {
   getUser: getUser,
   getUsers: getUsers,
   getGame: getGame,
+  getGames: getGames,
   getUserGames: getUserGames,
   editUser: editUser,
   addGame: addGame,
@@ -18,6 +19,10 @@ function getUser (id, connection) {
 
 function getGame (id, connection) {
   return connection('games').where('id', id)
+}
+
+function getGames (connection) {
+  return connection('games').select()
 }
 
 function getUserGames(user_id, connection) {

@@ -51,16 +51,25 @@ router.get('/user/:id/games/add', (req, res) => {
     })
 })
 
-router.get('/game/:id', (req, res) => {
+router.get('/games/:id', (req, res) => {
   db.getGame(req.params.id, (req.app.get('connection'))).first()
     .then((game) => {
-      res.render('games/game', game)
+      res.json({game})
     })
     .catch(function (err) {
       res.status(500).send('DATABASE ERROR: ' + err.message)
     })
 })
 
+router.get('/games', (req, res) => {
+  db.getGames(req.app.get('connection'))
+    .then((games) => {
+      res.json({games})
+    })
+    .catch(function (err) {
+      res.status(500).send('DATABASE ERROR: ' + err.message)
+    })
+})
 
 
 module.exports = router

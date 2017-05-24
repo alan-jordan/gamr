@@ -6,60 +6,30 @@ var createServer = require('../../server/server')
 var configureDatabase = require('./helpers/database-config')
 configureDatabase(test, createServer)
 
-test('GET /user/:id', (t) => {
+test('GET /api-v1/users/:id', (t) => {
   return request(t.context.app)
-    .get('/user/99901')
+    .get('/api-v1/users/99901')
     .expect(200)
     .then((res) => {
       return new Promise((resolve, reject) => {
-        const $ = cheerio.load(res.text)
-        t.is($('li[class=userInfoList]').first().text(), 'Username: eljordy')
+        const userJSON = JSON.parse(res.text)
+        t.is(userJSON.user[0].id, 99901)
+        t.is(userJSON.user[0].user_username, 'eljordy')
+        t.is(userJSON.user[0].user_dob, '1982-04-22')
         resolve()
       })
     })
 
 })
 
-  //  t.is($('li[class=user_list]:first-child').text(), 'eljordy')
-
-
-test('Get /', (t) => {
+test('Get /game/:id works', (t) => {
   return request(t.context.app)
-    .get('/')
+    .get('/api-v1/games/88801')
     .expect(200)
     .then((res) => {
-      const $ = cheerio.load(res.text)
       return new Promise((resolve, reject) => {
-        t.is($('h2').first().text(), 'Welcome to gamr')
-        resolve()
-      })
-    })
-})
-
-test('Get /user/:id/edit renders and pulls in the correct form info', (t) => {
-  return request(t.context.app)
-    .get('/user/99902/edit')
-    .expect(200)
-    .then((res) => {
-      const $ = cheerio.load(res.text)
-      return new Promise((resolve, reject) => {
-        t.is($('form').length,2) // Will be 2 as there is already a search form in the header
-        t.is($('input[name=user_username]').length,1)
-        t.is($('input[name=user_first_name]').length,1)
-        t.is($('input[name=user_surname]').length,1)
-        resolve()
-      })
-    })
-})
-
-test('Get /game/:id works and renders the page', (t) => {
-  return request(t.context.app)
-    .get('/game/88801')
-    .expect(200)
-    .then((res) => {
-      const $ = cheerio.load(res.text)
-      return new Promise((resolve, reject) => {
-        t.is($('h2').first().text(), 'The Legend of Zelda: Breath of the Wild')
+        const gameJSON = JSON.parse(res.text)
+          t.is(gameJSON.game.game_name, 'The Legend of Zelda: Breath of the Wild')
         resolve()
       })
     })
@@ -75,7 +45,7 @@ test('Post to /user/99901/games/add works', (t) => {
     system_purchased_on_id: 1
   }
   return request(t.context.app)
-    .post('/user/99901/games/add')
+    .post('/api-v1/users/99901/games/add')
     .send(addedGame)
     .expect(302)
     .then((res) => {
@@ -99,7 +69,7 @@ test('Post to /edit returns a redirect and edit form works', (t) => {
     id: 99903
   }
   return request(t.context.app)
-    .post('/edit')
+    .post('/api-v1/users/99903/edit')
     .send(editedUser)
     .expect(302)
     .then((res) => {
