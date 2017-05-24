@@ -6,7 +6,7 @@ var createServer = require('../../server/server')
 var configureDatabase = require('./helpers/database-config')
 configureDatabase(test, createServer)
 
-test('GET /api-v1/users/:id', (t) => {
+test('GET /users/:id', (t) => {
   return request(t.context.app)
     .get('/api-v1/users/99901')
     .expect(200)
@@ -29,7 +29,22 @@ test('Get /game/:id works', (t) => {
     .then((res) => {
       return new Promise((resolve, reject) => {
         const gameJSON = JSON.parse(res.text)
-          t.is(gameJSON.game.game_name, 'The Legend of Zelda: Breath of the Wild')
+        t.is(gameJSON.game.game_name, 'The Legend of Zelda: Breath of the Wild')
+        resolve()
+      })
+    })
+})
+
+test('Get /users/:id:/games', (t) => {
+  return request(t.context.app)
+    .get('/api-v1/users/99901/games')
+    .expect(200)
+    .then((res) => {
+      return new Promise((resolve, reject) => {
+        const gamesJSON = JSON.parse(res.text)
+        t.is(gamesJSON.games[1].game_name, "Super Marios Bros")
+        t.is(gamesJSON.games[0].game_release_date, "2017-03-03")
+        t.is(gamesJSON.games[2].game_id, 88803)
         resolve()
       })
     })

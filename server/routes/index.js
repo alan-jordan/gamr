@@ -44,10 +44,10 @@ router.post('/user/:id/games/add', (req, res) => {
     })
 })
 
-router.get('/user/:id/games/add', (req, res) => {
-  db.getUser(req.params.id, req.app.get('connection')).first()
-    .then((user) => {
-      res.render('users/addGame', user)
+router.get('/users/:id/games', (req, res) => {
+  db.getUserGames(req.params.id, req.app.get('connection'))
+    .then((games) => {
+      res.json({games})
     })
 })
 
