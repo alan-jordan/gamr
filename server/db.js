@@ -48,7 +48,12 @@ function getGames (connection) {
 
 function addGame(gameObj, connection) {
   return connection('games')
-    .insert(gameObj)
+    .insert({
+    game_name: gameObj.game_name,
+    game_publisher_id: gameObj.game_publisher_id,
+    game_release_date: gameObj.game_release_date,
+    game_series_id: gameObj.game_series_id
+  })
 }
 
 function deleteGame(id, connection) {
@@ -64,22 +69,16 @@ function getUserGames(user_id, connection) {
 }
 
 function addUserGames(user_id, gameObj, connection) {
-  return connection('games')
-    .insert({
-      game_name: gameObj.game_name,
-      game_publisher_id: gameObj.game_publisher,
-      game_release_date: gameObj.game_release_date,
-      game_series_id: gameObj.game_series
+  return addGame(gameObj, connection)
+    .then((game_id) => {
+      return connection('userGames')
+        .insert({
+          game_id: game_id[0],
+          user_id: user_id,
+          date_purchased: gameObj.date_purchased,
+          system_purchased_on_id: gameObj.system_purchased_on
+        })
     })
-      .then((game_id) => {
-        return connection('userGames')
-          .insert({
-            game_id: game_id[0],
-            user_id: user_id,
-            date_purchased: gameObj.date_purchased,
-            system_purchased_on_id: gameObj.system_purchased_on
-          })
-      })
 }
 
 function viewGameOwned(id, connection) {
