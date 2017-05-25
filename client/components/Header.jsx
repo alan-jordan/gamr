@@ -8,15 +8,6 @@ const Header = () => {
         <div className="navbar-header">
           <a className="logo navbar-brand" href="/">gamr</a>
         </div>
-        <ul className="nav navbar-nav navbar-right">
-          <li><a href="#">Login</a></li>
-          <form className="navbar-form navbar-left">
-            <div className="form-group">
-              <input type="text" className="form-control" placeholder="Search" />
-            </div>
-            <button type="submit" className="btn btn-default">Submit</button>
-          </form>
-        </ul>
       </div>
     </nav>
   )
