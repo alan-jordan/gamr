@@ -8,6 +8,9 @@ ul {
   margin: 0;
   padding: 0;
 }
+.header {
+  border-style: solid;
+}
 
 .header {
   background-color: #D55339;
