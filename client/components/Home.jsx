@@ -25,7 +25,7 @@ export default class Home extends React.Component {
     return this.state.users.map((user) => {
       return (
         <div className ='userInfo row'>
-          <div className = 'col col-md-2'>
+          <div className = 'col col-md-3'>
             <img className='profilePic' src = {`/images/users/${user.id}.jpg`} />
           </div>
           <div className = 'col col-md-4'>
@@ -33,7 +33,7 @@ export default class Home extends React.Component {
               <li>Username: {user.user_username}</li>
               <li>Full name: {user.user_first_name}  {user.user_surname}</li>
               <li>Last game added: </li>
-              <li><Link to={`/users/library/${user.id}`}>View library</Link></li>
+              <li><Link to={`/users/${user.id}/library`}>View library</Link></li>
             </ul>
           </div>
         </div>
@@ -44,13 +44,15 @@ export default class Home extends React.Component {
   render () {
     return (
       <div className="row">
-        <div className="col-md-12">
+        <div className="col-md-4">
           <h1>Welcome to gamr</h1>
           <p>
             We are a community of gamers from around the world who love to show off our games collections
             and talk about them to other gamers. Have a nosy around, find something you like the look of
             and have a chat about it.
           </p>
+        </div>
+        <div className="col-md-8">
           <div className="newGamrs">
             <h2>New gamrs</h2>
             {this.renderUsersInfo()}

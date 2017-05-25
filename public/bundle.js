@@ -11113,6 +11113,10 @@ var _Home = __webpack_require__(100);
 
 var _Home2 = _interopRequireDefault(_Home);
 
+var _Library = __webpack_require__(234);
+
+var _Library2 = _interopRequireDefault(_Library);
+
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -11145,7 +11149,8 @@ var App = function (_React$Component) {
           'div',
           { className: 'container' },
           _react2.default.createElement(_Header2.default, null),
-          _react2.default.createElement(_reactRouterDom.Route, { path: '/', exact: true, component: _Home2.default })
+          _react2.default.createElement(_reactRouterDom.Route, { path: '/', exact: true, component: _Home2.default }),
+          _react2.default.createElement(_reactRouterDom.Route, { path: '/users/:id/library', exact: true, component: _Library2.default })
         )
       );
     }
@@ -11277,7 +11282,7 @@ var Home = function (_React$Component) {
           { className: 'userInfo row' },
           _react2.default.createElement(
             'div',
-            { className: 'col col-md-2' },
+            { className: 'col col-md-3' },
             _react2.default.createElement('img', { className: 'profilePic', src: '/images/users/' + user.id + '.jpg' })
           ),
           _react2.default.createElement(
@@ -11310,7 +11315,7 @@ var Home = function (_React$Component) {
                 null,
                 _react2.default.createElement(
                   _reactRouterDom.Link,
-                  { to: '/users/library/' + user.id },
+                  { to: '/users/' + user.id + '/library' },
                   'View library'
                 )
               )
@@ -11327,7 +11332,7 @@ var Home = function (_React$Component) {
         { className: 'row' },
         _react2.default.createElement(
           'div',
-          { className: 'col-md-12' },
+          { className: 'col-md-4' },
           _react2.default.createElement(
             'h1',
             null,
@@ -11337,7 +11342,11 @@ var Home = function (_React$Component) {
             'p',
             null,
             'We are a community of gamers from around the world who love to show off our games collections and talk about them to other gamers. Have a nosy around, find something you like the look of and have a chat about it.'
-          ),
+          )
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'col-md-8' },
           _react2.default.createElement(
             'div',
             { className: 'newGamrs' },
@@ -27636,6 +27645,84 @@ var valueEqual = function valueEqual(a, b) {
 };
 
 exports.default = valueEqual;
+
+/***/ }),
+/* 234 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(7);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRouterDom = __webpack_require__(57);
+
+var _api = __webpack_require__(63);
+
+var api = _interopRequireWildcard(_api);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Library = function (_React$Component) {
+  _inherits(Library, _React$Component);
+
+  function Library(props) {
+    _classCallCheck(this, Library);
+
+    var _this = _possibleConstructorReturn(this, (Library.__proto__ || Object.getPrototypeOf(Library)).call(this, props));
+
+    _this.state = {
+      user_id: props.match.params.id,
+      user: ''
+    };
+    return _this;
+  }
+
+  _createClass(Library, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      this.refreshUser();
+    }
+  }, {
+    key: 'refreshUser',
+    value: function refreshUser() {
+      var _this2 = this;
+
+      api.getUser(this.state.user_id, function (user) {
+        _this2.setState({ user: user });
+      });
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'div',
+        null,
+        console.log(this.state.user)
+      );
+    }
+  }]);
+
+  return Library;
+}(_react2.default.Component);
+
+exports.default = Library;
 
 /***/ })
 /******/ ]);
