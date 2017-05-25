@@ -34,7 +34,7 @@ router.put('/users/:id/update', (req, res) => {
 })
 
 router.post('/users/add', (req, res) => {
-  db.addUser(userObj, connection)
+  db.addUser(req.body, req.app.get('connection'))
     .then(() => {
       res.sendStatus(201)
     })
@@ -43,7 +43,7 @@ router.post('/users/add', (req, res) => {
     })
 })
 
-router.post('/user/:id/games/add', (req, res) => {
+router.post('/users/:id/games/add', (req, res) => {
   db.addGame(req.params.id, req.body, req.app.get('connection'))
     .then((id) => {
       res.redirect(`/user/${req.params.id}`)

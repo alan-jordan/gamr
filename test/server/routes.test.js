@@ -29,7 +29,7 @@ test('POST to /users/add', (t) => {
     user_surname: 'Reid'
   }
   return request(t.context.app)
-    .post('/api-v1/users')
+    .post('/api-v1/users/add')
     .send(addedUser)
     .expect(201)
     .then(() => {
