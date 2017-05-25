@@ -6,7 +6,7 @@ var db = require('../db')
 router.get('/users', (req, res) => {
   db.getUsers(req.app.get('connection'))
     .then(function (users) {
-      res.json({ users: users })
+      res.json(users)
     })
     .catch(function (err) {
       res.status(500).send('DATABASE ERROR: ' + err.message)
@@ -43,6 +43,56 @@ router.post('/users/add', (req, res) => {
     })
 })
 
+router.delete('/users/:id/delete', (req, res) => {
+  db.deleteUser(req.params.id, req.app.get('connection'))
+  .then(() => {
+    res.sendStatus(202)
+  })
+  .catch(function (err) {
+    res.status(500).send('DATABASE ERROR: ' + err.message)
+  })
+})
+
+router.get('/games/:id', (req, res) => {
+  db.getGame(req.params.id, (req.app.get('connection'))).first()
+    .then((game) => {
+      res.json({game})
+    })
+    .catch(function (err) {
+      res.status(500).send('DATABASE ERROR: ' + err.message)
+    })
+})
+
+router.get('/games', (req, res) => {
+  db.getGames(req.app.get('connection'))
+    .then((games) => {
+      res.json(games)
+    })
+    .catch(function (err) {
+      res.status(500).send('DATABASE ERROR: ' + err.message)
+    })
+})
+
+router.post('/games', (req, res) => {
+  db.addGame(req.body, req.app.get('connection'))
+    .then(() => {
+      res.sendStatus(201)
+    })
+    .catch(function (err) {
+      res.status(500).send('DATABASE ERROR: ' + err.message)
+    })
+})
+
+router.delete('/games/:id/delete', (req, res) => {
+  db.deleteGame(req.params.id, req.app.get('connection'))
+  .then(() => {
+    res.sendStatus(202)
+  })
+  .catch(function (err) {
+    res.status(500).send('DATABASE ERROR: ' + err.message)
+  })
+})
+
 router.post('/users/:id/games/add', (req, res) => {
   db.addGame(req.params.id, req.body, req.app.get('connection'))
     .then((id) => {
@@ -63,25 +113,6 @@ router.get('/users/:id/games', (req, res) => {
     })
 })
 
-router.get('/games/:id', (req, res) => {
-  db.getGame(req.params.id, (req.app.get('connection'))).first()
-    .then((game) => {
-      res.json({game})
-    })
-    .catch(function (err) {
-      res.status(500).send('DATABASE ERROR: ' + err.message)
-    })
-})
-
-router.get('/games', (req, res) => {
-  db.getGames(req.app.get('connection'))
-    .then((games) => {
-      res.json({games})
-    })
-    .catch(function (err) {
-      res.status(500).send('DATABASE ERROR: ' + err.message)
-    })
-})
 
 
 module.exports = router

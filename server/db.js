@@ -1,13 +1,15 @@
 module.exports = {
   getUser: getUser,
   getUsers: getUsers,
-  getGame: getGame,
-  getGames: getGames,
-  getUserGames: getUserGames,
   updateUser: updateUser,
-  addGame: addGame,
   addUser: addUser,
   deleteUser: deleteUser,
+  getGame: getGame,
+  getGames: getGames,
+  addGame: addGame,
+  deleteGame: deleteGame,
+  getUserGames: getUserGames,
+  addUserGames: addUserGames,
   viewGameOwned: viewGameOwned
 }
 
@@ -44,15 +46,24 @@ function getGames (connection) {
   return connection('games').select()
 }
 
+function addGame(gameObj, connection) {
+  return connection('games')
+    .insert(gameObj)
+}
+
+function deleteGame(id, connection) {
+  return connection('games')
+    .where('id', id)
+    .del()
+}
+
 function getUserGames(user_id, connection) {
   return connection('userGames').select('*', 'userGames.id as userGames_id')
     .where('user_id', user_id)
     .join('games', "games.id","=","game_id")
 }
 
-
-
-function addGame(user_id, gameObj, connection) {
+function addUserGames(user_id, gameObj, connection) {
   return connection('games')
     .insert({
       game_name: gameObj.game_name,

@@ -23,8 +23,6 @@ test('addUser adds a user', (t) => {
 })
 
 test('getUsers gets all users', (t) => {
-  // One for each letter of the alphabet!
-
   return db.getUsers(t.context.connection)
     .then(function (result) {
       return new Promise((resolve, reject) => {
@@ -42,47 +40,6 @@ test('getUsers gets a single user', function (t) {
       return new Promise((resolve, reject) => {
         var actual = result[0].user_username
         t.is(expected, actual)
-        resolve()
-      })
-    })
-})
-
-test('getGame gets a single game', (t) => {
-  return db.getGame(88801, t.context.connection)
-    .then((result) => {
-      return new Promise((resolve, reject) => {
-        t.is(result.length, 1)
-        resolve()
-      })
-    })
-})
-
-test('getGame gets the right game', (t) => {
-  return db.getGame(88802, t.context.connection)
-    .then((result) => {
-      return new Promise((resolve, reject) => {
-        t.is(result[0].game_name, "Super Marios Bros")
-        resolve()
-      })
-    })
-})
-
-test('getUserGames gets the right number of games ', (t) => {
-  return db.getUserGames(99901, t.context.connection)
-    .then((result) => {
-      return new Promise((resolve, reject) => {
-        t.is(result.length, 3)
-        resolve()
-      })
-    })
-})
-
-test('getUserGames gets the right games', (t) => {
-  return db.getUserGames(99901, t.context.connection)
-    .then((result) => {
-      return new Promise((resolve, reject) => {
-        t.is(result[0].game_name, "The Legend of Zelda: Breath of the Wild")
-        t.is(result.length, 3)
         resolve()
       })
     })
@@ -113,7 +70,77 @@ test('deleteUser deletes a user', (t) => {
     })
 })
 
-test('addGames adds a game to the users collection', (t) => {
+//games
+test('getGame gets a single game', (t) => {
+  return db.getGame(88801, t.context.connection)
+    .then((res) => {
+      return new Promise((resolve, reject) => {
+        t.is(res.length, 1)
+        resolve()
+      })
+    })
+})
+
+test('getGame gets the right game', (t) => {
+  return db.getGame(88802, t.context.connection)
+    .then((res) => {
+      return new Promise((resolve, reject) => {
+        t.is(res[0].game_name, "Super Marios Bros")
+        resolve()
+      })
+    })
+})
+
+test('getGames gets all the games', (t) => {
+  return db.getGames(t.context.connection)
+    .then((res) => {
+      return new Promise((resolve, reject) => {
+        t.is(res.length, 3)
+        resolve()
+      })
+    })
+})
+
+test('addGame', (t) => {
+  const gameObj = {
+    game_name: 'Mario Kart 8 Deluxe',
+    game_publisher_id: 2,
+    game_release_date: '2017-04-28',
+    game_series_id: 3
+  }
+  return db.addGame(gameObj, t.context.connection)
+    .then((res) => {
+      return new Promise((resolve, reject) => {
+        t.is(res[0], 88804)
+        resolve()
+      })
+    })
+})
+
+test('getUserGames gets the right number of games ', (t) => {
+  return db.getUserGames(99901, t.context.connection)
+    .then((result) => {
+      return new Promise((resolve, reject) => {
+        t.is(result.length, 3)
+        resolve()
+      })
+    })
+})
+
+test('getUserGames gets the right games', (t) => {
+  return db.getUserGames(99901, t.context.connection)
+    .then((result) => {
+      return new Promise((resolve, reject) => {
+        t.is(result[0].game_name, "The Legend of Zelda: Breath of the Wild")
+        t.is(result.length, 3)
+        resolve()
+      })
+    })
+})
+
+
+
+test('addUserGames adds a game to the users collection', (t) => {
   let gameObj = {
     game_name: 'Mario Kart 8 Deluxe',
     game_publisher_id: 2,
@@ -121,7 +148,7 @@ test('addGames adds a game to the users collection', (t) => {
     game_series: 4,
     system_purchased_on: 1
   }
-  return db.addGame(99901, gameObj, t.context.connection)
+  return db.addUserGames(99901, gameObj, t.context.connection)
     .then((userGamesAddedId) => {
       return db.getUserGames(99901, t.context.connection)
         .then((userGames) => {

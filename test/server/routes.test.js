@@ -22,6 +22,33 @@ test('GET /users/:id', (t) => {
     })
 })
 
+test('GET /users', (t) => {
+  return request(t.context.app)
+    .get('/api-v1/users')
+    .expect(200)
+    .then((res) => {
+      return new Promise((resolve, reject) => {
+        t.is(res.body.length, 3)
+        resolve()
+      })
+    })
+})
+
+test('Delete /users/:id/delete', (t) => {
+  return request(t.context.app)
+    .delete('/api-v1/users/99901/delete')
+    .expect(202)
+    .then((res) => {
+      return t.context.connection('users').select()
+    })
+    .then((users) => {
+      return new Promise((resolve, reject) => {
+        t.is(users.length, 2)
+        resolve()
+      })
+    })
+})
+
 test('POST to /users/add', (t) => {
   const addedUser = {
     user_username: 'strongSafety',
@@ -81,6 +108,49 @@ test('Get /game/:id works', (t) => {
     })
 })
 
+test('Get /games', (t) => {
+  return request(t.context.app)
+    .get('/api-v1/games')
+    .expect(200)
+    .then((res) => {
+      return new Promise((resolve, reject) => {
+        t.is(res.body.length, 3)
+        resolve()
+      })
+    })
+})
+
+test('Post /games', (t) => {
+  return request(t.context.app)
+    .post('/api-v1/games')
+    .send({game_name: 'Mario Kart 8 Deluxe'})
+    .expect(201)
+    .then(() => {
+      return t.context.connection('games').select()
+    })
+    .then((games) => {
+      return new Promise((resolve, reject) => {
+        t.is(games.length, 4)
+        resolve()
+      })
+    })
+})
+
+test('Delete /games/:id/delete', (t) => {
+  return request(t.context.app)
+    .delete('/api-v1/games/88801/delete')
+    .expect(202)
+    .then((res) => {
+      return t.context.connection('games').select()
+    })
+    .then((games) => {
+      return new Promise((resolve, reject) => {
+        t.is(games.length, 2)
+        resolve()
+      })
+    })
+})
+
 //userGames
 test('Get /users/:id:/games', (t) => {
   return request(t.context.app)
@@ -98,26 +168,26 @@ test('Get /users/:id:/games', (t) => {
 })
 
 
-test('Post to /user/99901/games/add works', (t) => {
-  const addedGame = {
-    game_name: 'Mario Kart 8 Deluxe',
-    game_publisher_id: 2,
-    date_purchased: "2017-04-25",
-    game_series_id: 4,
-    system_purchased_on_id: 1
-  }
-  return request(t.context.app)
-    .post('/api-v1/users/99901/games/add')
-    .send(addedGame)
-    .expect(302)
-    .then((res) => {
-      t.context.connection('games').select()
-        .then((games) => {
-          new Promise((resolve, reject) => {
-            t.is(games.length, 4)
-            resolve()
-          })
-        })
-      })
-
-})
+// test('Post to /user/99901/games/add works', (t) => {
+//   const addedGame = {
+//     game_name: 'Mario Kart 8 Deluxe',
+//     game_publisher_id: 2,
+//     date_purchased: "2017-04-25",
+//     game_series_id: 4,
+//     system_purchased_on_id: 1
+//   }
+//   return request(t.context.app)
+//     .post('/api-v1/users/99901/games/add')
+//     .send(addedGame)
+//     .expect(302)
+//     .then((res) => {
+//       t.context.connection('games').select()
+//         .then((games) => {
+//           new Promise((resolve, reject) => {
+//             t.is(games.length, 4)
+//             resolve()
+//           })
+//         })
+//       })
+//
+// })
