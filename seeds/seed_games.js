@@ -15,7 +15,7 @@ exports.seed = function(knex, Promise) {
         },
         {
           id: 88802,
-          game_name: 'Super Marios Bros',
+          game_name: 'Super Mario Bros',
           game_publisher_id: 2,
           game_release_date: "1982-04-22",
           game_series_id: 2,

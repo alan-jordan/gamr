@@ -40,6 +40,18 @@ test.cb('api.getLatestUsers', t => {
   })
 })
 
+test.cb('api.getUserLatestGame', t => {
+  let scope = nock('http://localhost:80')
+    .get('/api-v1/users/99902/latestgame')
+    .reply(200, {message: 'Latest users game working'})
+
+  api.getUserLatestGame(99902, (actual) => {
+    scope.done()
+    t.is(actual.message, 'Latest users game working')
+    t.end()
+  })
+})
+
 test.cb('api.getGames', t => {
   let scope = nock('http://localhost:80')
     .get('/api-v1/games')

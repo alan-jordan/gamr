@@ -11,7 +11,8 @@ module.exports = {
   getUserGames: getUserGames,
   addUserGames: addUserGames,
   viewGameOwned: viewGameOwned,
-  getNumUsers: getNumUsers
+  getNumUsers: getNumUsers,
+  getUserLatestGame: getUserLatestGame
 }
 
 function getUsers (connection) {
@@ -20,6 +21,10 @@ function getUsers (connection) {
 
 function getUser (id, connection) {
   return connection('users').where('id', id).first()
+}
+
+function getUserLatestGame (id, connection) {
+  return getUserGames(id, connection).limit(1).orderBy('date_purchased', 'desc').first()
 }
 
 function getNumUsers(num, connection) {

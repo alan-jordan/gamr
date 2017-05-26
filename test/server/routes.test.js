@@ -45,6 +45,18 @@ test('GET /latestusers', t => {
     })
 })
 
+test('Get /users/:id/latestgame', t => {
+  return request(t.context.app)
+    .get('/api-v1/users/99903/latestgame')
+    .expect(200)
+    .then((res) => {
+      return new Promise((resolve, reject) => {
+        t.is(res.body.game_name, 'Super Mario Bros')
+        resolve()
+      })
+    })
+})
+
 test('Delete /users/:id/delete', (t) => {
   return request(t.context.app)
     .delete('/api-v1/users/99901/delete')
@@ -170,7 +182,7 @@ test('Get /users/:id:/games', (t) => {
     .then((res) => {
       return new Promise((resolve, reject) => {
         const gamesJSON = JSON.parse(res.text)
-        t.is(gamesJSON.games[1].game_name, "Super Marios Bros")
+        t.is(gamesJSON.games[1].game_name, "Super Mario Bros")
         t.is(gamesJSON.games[0].game_release_date, "2017-03-03")
         t.is(gamesJSON.games[2].game_id, 88803)
         resolve()

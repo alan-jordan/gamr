@@ -55,6 +55,17 @@ test('getUser gets a single user', function (t) {
     })
 })
 
+test('getUserLatestGame gets the right game', t => {
+  return db.getUserLatestGame(99901, t.context.connection)
+    .then((res) => {
+      return new Promise((resolve, reject) => {
+        t.is(res.game_id, 88801)
+        t.is(res.game_name, 'The Legend of Zelda: Breath of the Wild')
+        resolve()
+      })
+    })
+})
+
 test('updateUser edits the user correctly', (t) => {
   let userObj = {
     user_username:'Bob the Builder',
@@ -95,7 +106,7 @@ test('getGame gets the right game', (t) => {
   return db.getGame(88802, t.context.connection)
     .then((res) => {
       return new Promise((resolve, reject) => {
-        t.is(res[0].game_name, "Super Marios Bros")
+        t.is(res[0].game_name, "Super Mario Bros")
         resolve()
       })
     })

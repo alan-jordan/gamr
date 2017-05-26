@@ -123,6 +123,16 @@ router.get('/users/:id/games', (req, res) => {
     })
 })
 
+router.get('/users/:id/latestgame', (req, res) => {
+  db.getUserLatestGame(req.params.id, req.app.get('connection'))
+    .then((game) => {
+      res.json(game)
+    })
+    .catch((err) => {
+      res.status(500).send('DATABASE ERROR: ' + err.message)
+    })
+})
+
 
 
 module.exports = router

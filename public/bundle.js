@@ -4972,6 +4972,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.getUsers = getUsers;
 exports.getUser = getUser;
 exports.getLatestUsers = getLatestUsers;
+exports.getUserLatestGame = getUserLatestGame;
 exports.getGames = getGames;
 
 var _superagent = __webpack_require__(228);
@@ -4994,6 +4995,12 @@ function getUser(user_id, callback) {
 
 function getLatestUsers(callback) {
   _superagent2.default.get('/api-v1/latestusers').end(function (err, res) {
+    err ? callback(err) : callback(res.body);
+  });
+}
+
+function getUserLatestGame(user_id, callback) {
+  _superagent2.default.get('/api-v1/users/' + user_id + '/latestgame').end(function (err, res) {
     err ? callback(err) : callback(res.body);
   });
 }
@@ -27729,7 +27736,8 @@ var UserInfo = function (_React$Component) {
 
     _this.state = {
       user_id: props.user_id,
-      user: {}
+      user: {},
+      latestGame: {}
     };
     return _this;
   }
@@ -27738,6 +27746,7 @@ var UserInfo = function (_React$Component) {
     key: 'componentDidMount',
     value: function componentDidMount() {
       this.getUser();
+      this.getUserLatestGame();
     }
   }, {
     key: 'getUser',
@@ -27746,6 +27755,15 @@ var UserInfo = function (_React$Component) {
 
       api.getUser(this.state.user_id, function (user) {
         _this2.setState({ user: user });
+      });
+    }
+  }, {
+    key: 'getUserLatestGame',
+    value: function getUserLatestGame() {
+      var _this3 = this;
+
+      api.getUserLatestGame(this.state.user_id, function (latestGame) {
+        _this3.setState({ latestGame: latestGame });
       });
     }
   }, {
@@ -27782,7 +27800,8 @@ var UserInfo = function (_React$Component) {
             _react2.default.createElement(
               'li',
               null,
-              'Last game added: '
+              'Last game added: ',
+              this.state.latestGame.game_name
             ),
             _react2.default.createElement(
               'li',

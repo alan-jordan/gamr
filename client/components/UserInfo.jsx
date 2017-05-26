@@ -8,17 +8,24 @@ export default class UserInfo extends React.Component {
     super(props)
     this.state = {
       user_id: props.user_id,
-      user: {}
+      user: {},
+      latestGame: {}
       }
     }
 
     componentDidMount() {
       this.getUser()
+      this.getUserLatestGame()
     }
 
     getUser() {
       api.getUser(this.state.user_id, (user) => {
         this.setState({user})
+      })
+    }
+    getUserLatestGame() {
+      api.getUserLatestGame(this.state.user_id, (latestGame) => {
+        this.setState({latestGame})
       })
     }
 
@@ -32,7 +39,7 @@ export default class UserInfo extends React.Component {
           <ul className='userDetails'>
             <li>Username: {this.state.user.user_username}</li>
             <li>Full name: {this.state.user.user_first_name}  {this.state.user.user_surname}</li>
-            <li>Last game added: </li>
+            <li>Last game added: {this.state.latestGame.game_name}</li>
             <li><Link to={`/users/${this.state.user.id}/library`}>View library</Link></li>
           </ul>
         </div>
