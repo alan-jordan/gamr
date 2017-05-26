@@ -4971,6 +4971,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.getUsers = getUsers;
 exports.getUser = getUser;
+exports.getLatestUsers = getLatestUsers;
 exports.getGames = getGames;
 
 var _superagent = __webpack_require__(228);
@@ -4987,6 +4988,12 @@ function getUsers(callback) {
 
 function getUser(user_id, callback) {
   _superagent2.default.get('/api-v1/users/' + user_id).end(function (err, res) {
+    err ? callback(err) : callback(res.body);
+  });
+}
+
+function getLatestUsers(callback) {
+  _superagent2.default.get('/api-v1/latestusers').end(function (err, res) {
     err ? callback(err) : callback(res.body);
   });
 }
