@@ -34,6 +34,18 @@ test('GET /users', (t) => {
     })
 })
 
+test('GET /latestusers', t => {
+  return request(t.context.app)
+    .get('/api-v1/latestusers')
+    .expect(200)
+    .then((res) => {
+      return new Promise((resolve, reject) => {
+        t.is(res.body.length, 3)
+        resolve()
+      })
+    })
+})
+
 test('Delete /users/:id/delete', (t) => {
   return request(t.context.app)
     .delete('/api-v1/users/99901/delete')

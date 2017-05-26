@@ -23,6 +23,16 @@ router.get('/users/:id', (req, res) => {
       })
 })
 
+router.get('/latestusers', (req, res) => {
+  db.getNumUsers(3, req.app.get('connection'))
+    .then(function(users) {
+      res.json(users)
+    })
+    .catch(function (err) {
+      res.status(500).send('DATABASE ERROR: ' + err.message)
+    })
+})
+
 router.put('/users/:id/update', (req, res) => {
   db.updateUser(req.params.id, req.body, req.app.get('connection'))
     .then(() => {

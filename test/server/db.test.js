@@ -33,6 +33,16 @@ test('getUsers gets all users', (t) => {
     })
 })
 
+test('getNumUsers gets the correct number of users', t => {
+  return db.getNumUsers(3, t.context.connection)
+    .then((res) => {
+      return new Promise((resolve, reject) => {
+        t.is(res.length, 3)
+        resolve()
+      })
+    })
+})
+
 test('getUsers gets a single user', function (t) {
   var expected = 'Nerf Herder'
   return db.getUser(99903, t.context.connection)
