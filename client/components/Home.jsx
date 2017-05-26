@@ -2,6 +2,7 @@ import React from 'react'
 import {Link} from 'react-router-dom'
 
 import * as api from '../api'
+import UserInfo from './UserInfo'
 
 export default class Home extends React.Component {
   constructor(props) {
@@ -16,28 +17,8 @@ export default class Home extends React.Component {
   }
 
   refreshUsers() {
-    api.getUsers((users) => {
+    api.getLatestUsers((users) => {
       this.setState({users})
-    })
-  }
-
-  renderUsersInfo() {
-    return this.state.users.map((user) => {
-      return (
-        <div className ='userInfo row'>
-          <div className = 'col col-md-3'>
-            <img className='profilePic' src = {`/images/users/${user.id}.jpg`} />
-          </div>
-          <div className = 'col col-md-4'>
-            <ul className='userDetails'>
-              <li>Username: {user.user_username}</li>
-              <li>Full name: {user.user_first_name}  {user.user_surname}</li>
-              <li>Last game added: </li>
-              <li><Link to={`/users/${user.id}/library`}>View library</Link></li>
-            </ul>
-          </div>
-        </div>
-      )
     })
   }
 
@@ -55,7 +36,7 @@ export default class Home extends React.Component {
         <div className="col-md-8">
           <div className="newGamrs">
             <h2>New gamrs</h2>
-            {this.renderUsersInfo()}
+            {this.state.users.map(user => <UserInfo user_id={user.id}/>)}
           </div>
         </div>
       </div>

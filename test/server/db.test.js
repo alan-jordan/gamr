@@ -43,12 +43,12 @@ test('getNumUsers gets the correct number of users', t => {
     })
 })
 
-test('getUsers gets a single user', function (t) {
+test('getUser gets a single user', function (t) {
   var expected = 'Nerf Herder'
   return db.getUser(99903, t.context.connection)
     .then(function (result) {
       return new Promise((resolve, reject) => {
-        var actual = result[0].user_username
+        var actual = result.user_username
         t.is(expected, actual)
         resolve()
       })

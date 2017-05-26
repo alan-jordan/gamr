@@ -11242,6 +11242,10 @@ var _api = __webpack_require__(39);
 
 var api = _interopRequireWildcard(_api);
 
+var _UserInfo = __webpack_require__(235);
+
+var _UserInfo2 = _interopRequireDefault(_UserInfo);
+
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -11276,59 +11280,8 @@ var Home = function (_React$Component) {
     value: function refreshUsers() {
       var _this2 = this;
 
-      api.getUsers(function (users) {
+      api.getLatestUsers(function (users) {
         _this2.setState({ users: users });
-      });
-    }
-  }, {
-    key: 'renderUsersInfo',
-    value: function renderUsersInfo() {
-      return this.state.users.map(function (user) {
-        return _react2.default.createElement(
-          'div',
-          { className: 'userInfo row' },
-          _react2.default.createElement(
-            'div',
-            { className: 'col col-md-3' },
-            _react2.default.createElement('img', { className: 'profilePic', src: '/images/users/' + user.id + '.jpg' })
-          ),
-          _react2.default.createElement(
-            'div',
-            { className: 'col col-md-4' },
-            _react2.default.createElement(
-              'ul',
-              { className: 'userDetails' },
-              _react2.default.createElement(
-                'li',
-                null,
-                'Username: ',
-                user.user_username
-              ),
-              _react2.default.createElement(
-                'li',
-                null,
-                'Full name: ',
-                user.user_first_name,
-                '  ',
-                user.user_surname
-              ),
-              _react2.default.createElement(
-                'li',
-                null,
-                'Last game added: '
-              ),
-              _react2.default.createElement(
-                'li',
-                null,
-                _react2.default.createElement(
-                  _reactRouterDom.Link,
-                  { to: '/users/' + user.id + '/library' },
-                  'View library'
-                )
-              )
-            )
-          )
-        );
       });
     }
   }, {
@@ -11362,7 +11315,9 @@ var Home = function (_React$Component) {
               null,
               'New gamrs'
             ),
-            this.renderUsersInfo()
+            this.state.users.map(function (user) {
+              return _react2.default.createElement(_UserInfo2.default, { user_id: user.id });
+            })
           )
         )
       );
@@ -27730,6 +27685,124 @@ var valueEqual = function valueEqual(a, b) {
 };
 
 exports.default = valueEqual;
+
+/***/ }),
+/* 235 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(6);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRouterDom = __webpack_require__(37);
+
+var _api = __webpack_require__(39);
+
+var api = _interopRequireWildcard(_api);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var UserInfo = function (_React$Component) {
+  _inherits(UserInfo, _React$Component);
+
+  function UserInfo(props) {
+    _classCallCheck(this, UserInfo);
+
+    var _this = _possibleConstructorReturn(this, (UserInfo.__proto__ || Object.getPrototypeOf(UserInfo)).call(this, props));
+
+    _this.state = {
+      user_id: props.user_id,
+      user: {}
+    };
+    return _this;
+  }
+
+  _createClass(UserInfo, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      this.getUser();
+    }
+  }, {
+    key: 'getUser',
+    value: function getUser() {
+      var _this2 = this;
+
+      api.getUser(this.state.user_id, function (user) {
+        _this2.setState({ user: user });
+      });
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'div',
+        { className: 'userInfo row' },
+        _react2.default.createElement(
+          'div',
+          { className: 'col col-md-3' },
+          _react2.default.createElement('img', { className: 'profilePic', src: '/images/users/' + this.state.user_id + '.jpg' })
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'col col-md-4' },
+          _react2.default.createElement(
+            'ul',
+            { className: 'userDetails' },
+            _react2.default.createElement(
+              'li',
+              null,
+              'Username: ',
+              this.state.user.user_username
+            ),
+            _react2.default.createElement(
+              'li',
+              null,
+              'Full name: ',
+              this.state.user.user_first_name,
+              '  ',
+              this.state.user.user_surname
+            ),
+            _react2.default.createElement(
+              'li',
+              null,
+              'Last game added: '
+            ),
+            _react2.default.createElement(
+              'li',
+              null,
+              _react2.default.createElement(
+                _reactRouterDom.Link,
+                { to: '/users/' + this.state.user.id + '/library' },
+                'View library'
+              )
+            )
+          )
+        )
+      );
+    }
+  }]);
+
+  return UserInfo;
+}(_react2.default.Component);
+
+exports.default = UserInfo;
 
 /***/ })
 /******/ ]);

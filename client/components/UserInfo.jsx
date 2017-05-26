@@ -3,21 +3,20 @@ import {Link} from 'react-router-dom'
 
 import * as api from '../api'
 
-
 export default class UserInfo extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      user_id: props.match.params.id,
-      user: ''
+      user_id: props.user_id,
+      user: {}
       }
     }
 
     componentDidMount() {
-      this.refreshUser()
+      this.getUser()
     }
 
-    refreshUser() {
+    getUser() {
       api.getUser(this.state.user_id, (user) => {
         this.setState({user})
       })
@@ -25,8 +24,18 @@ export default class UserInfo extends React.Component {
 
   render() {
     return (
-      <div>
-        {console.log(this.state.user)}
+      <div className ='userInfo row'>
+        <div className = 'col col-md-3'>
+          <img className='profilePic' src = {`/images/users/${this.state.user_id}.jpg`} />
+        </div>
+        <div className = 'col col-md-4'>
+          <ul className='userDetails'>
+            <li>Username: {this.state.user.user_username}</li>
+            <li>Full name: {this.state.user.user_first_name}  {this.state.user.user_surname}</li>
+            <li>Last game added: </li>
+            <li><Link to={`/users/${this.state.user.id}/library`}>View library</Link></li>
+          </ul>
+        </div>
       </div>
     )
   }

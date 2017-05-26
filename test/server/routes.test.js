@@ -13,10 +13,9 @@ test('GET /users/:id', (t) => {
     .expect(200)
     .then((res) => {
       return new Promise((resolve, reject) => {
-        const userJSON = JSON.parse(res.text)
-        t.is(userJSON.user[0].id, 99901)
-        t.is(userJSON.user[0].user_username, 'eljordy')
-        t.is(userJSON.user[0].user_dob, '1982-04-22')
+        t.is(res.body.id, 99901)
+        t.is(res.body.user_username, 'eljordy')
+        t.is(res.body.user_dob, '1982-04-22')
         resolve()
       })
     })
