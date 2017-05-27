@@ -3,12 +3,15 @@ import {Link} from 'react-router-dom'
 
 import * as api from '../api'
 import UserInfo from './UserInfo'
+import AddUser from './AddUser'
 
 export default class Home extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      users: []
+      users: [],
+      addVisible: null,
+      error: null
     }
   }
 
@@ -20,6 +23,19 @@ export default class Home extends React.Component {
     api.getLatestUsers((users) => {
       this.setState({users})
     })
+  }
+
+  addUser() {
+    api.addUser(user, (error) => {
+      error ? this.setState({error}) : this.refreshUsers()
+    })
+  }
+
+  addFormVisible() {
+    this.setState({addVisible: true})
+  }
+  addFormInvisible() {
+    this.setState({addVisible: false})
   }
 
   render () {
@@ -36,6 +52,11 @@ export default class Home extends React.Component {
         <div className="col-md-8">
           <div className="newGamrs">
             <h2>New gamrs</h2>
+              <p><a id='show-add-link' href='#' onClick={(e) => this.addFormVisible(e)}>Add user</a></p>
+              {this.state.addVisible && <AddUser
+              submitCallback={this.addUser.bind(this)}
+              cancelCallback={this.addFormInvisible.bind(this)}
+              />}
             {this.state.users.map(user => <UserInfo user_id={user.id}/>)}
           </div>
         </div>
