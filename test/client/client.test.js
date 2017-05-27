@@ -21,3 +21,10 @@ test('H1 renders', t => {
   const wrapper = render(<App />)
   t.is(wrapper.find('h1').text(), 'Welcome to gamr')
 })
+
+test('Renders add form when clicked', t => {
+  const wrapper = mount(<App />)
+  t.is(wrapper.find('.addUserForm').exists(), false)
+  wrapper.find('#show-add-link').simulate('click')
+  t.is(wrapper.find('.addUserForm').exists(), true)
+})
