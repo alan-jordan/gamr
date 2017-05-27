@@ -24,6 +24,7 @@ export default class AddUser extends React.Component {
     this.setState({user})
   }
 
+
   render() {
     return(
       <div className='addUserForm'>
@@ -34,7 +35,9 @@ export default class AddUser extends React.Component {
           <input type='text' name='user_first_name' value={this.state.user_first_name} placeholder = "First Name" onChange={(evt =>this.handleChange(evt))}/><br/>
           <label>Surname: </label>
           <input type='text' name='user_surname' value={this.state.user_surname} placeholder = "Surname" onChange={(evt =>this.handleChange(evt))}/><br/>
-           <input type='submit' value='add gamr' />
+          <label>Avatar Image: </label>
+          <input type='text' name='user_image' value={this.state.user_image} placeholder = "Avatar image URL" onChange={(evt =>this.handleChange(evt))}/><br/>
+          <input type='submit' value='add gamr' />
           <a href='#' onClick={this.props.cancelCallback}>Cancel</a>
         </form>
       </div>

@@ -3146,7 +3146,7 @@ function getLatestUsers(callback) {
 }
 
 function addUser(userObj, callback) {
-  _superagent2.default.post('/api-v1/users/add').send(userObj.user).end(function (err, res) {
+  _superagent2.default.post('/api-v1/users/add').send(userObj).end(function (err, res) {
     err ? callback(err) : callback(null);
   });
 }
@@ -11302,6 +11302,15 @@ var AddUser = function (_React$Component) {
               return _this2.handleChange(evt);
             } }),
           _react2.default.createElement('br', null),
+          _react2.default.createElement(
+            'label',
+            null,
+            'Avatar Image: '
+          ),
+          _react2.default.createElement('input', { type: 'text', name: 'user_image', value: this.state.user_image, placeholder: 'Avatar image URL', onChange: function onChange(evt) {
+              return _this2.handleChange(evt);
+            } }),
+          _react2.default.createElement('br', null),
           _react2.default.createElement('input', { type: 'submit', value: 'add gamr' }),
           _react2.default.createElement(
             'a',
@@ -11422,22 +11431,28 @@ var Home = function (_React$Component) {
       this.refreshUsers();
     }
   }, {
-    key: 'refreshUsers',
-    value: function refreshUsers() {
-      var _this2 = this;
-
-      api.getLatestUsers(function (users) {
-        _this2.setState({ users: users });
+    key: 'renderUsers',
+    value: function renderUsers(users) {
+      this.setState({
+        users: users || []
       });
-      this.addFormInvisible();
+    }
+  }, {
+    key: 'refreshUsers',
+    value: function refreshUsers(error) {
+      this.setState({
+        error: error,
+        addVisible: false
+      });
+      api.getLatestUsers(this.renderUsers.bind(this));
     }
   }, {
     key: 'saveUser',
     value: function saveUser(user) {
-      var _this3 = this;
+      var _this2 = this;
 
       api.addUser(user, function (err) {
-        err ? console.log(err) : _this3.refreshUsers();
+        err ? console.log(err) : _this2.refreshUsers();
       });
     }
   }, {
@@ -11453,7 +11468,7 @@ var Home = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-      var _this4 = this;
+      var _this3 = this;
 
       return _react2.default.createElement(
         'div',
@@ -11489,7 +11504,7 @@ var Home = function (_React$Component) {
               _react2.default.createElement(
                 'a',
                 { id: 'show-add-link', href: '#', onClick: function onClick(e) {
-                    return _this4.addFormVisible(e);
+                    return _this3.addFormVisible(e);
                   } },
                 'Add user'
               )
@@ -11692,7 +11707,7 @@ var UserInfo = function (_React$Component) {
         _react2.default.createElement(
           'div',
           { className: 'col col-md-3' },
-          _react2.default.createElement('img', { className: 'profilePic', src: '/images/users/' + this.state.user_id + '.jpg' })
+          _react2.default.createElement('img', { className: 'profilePic', src: this.state.user.user_image })
         ),
         _react2.default.createElement(
           'div',
@@ -11713,6 +11728,12 @@ var UserInfo = function (_React$Component) {
               this.state.user.user_first_name,
               '  ',
               this.state.user.user_surname
+            ),
+            _react2.default.createElement(
+              'li',
+              null,
+              'Latest game: ',
+              this.state.latestGame ? this.state.latestGame.game_name : "No games registered yet"
             ),
             _react2.default.createElement(
               'li',

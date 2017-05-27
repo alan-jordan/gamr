@@ -33,12 +33,13 @@ export default class UserInfo extends React.Component {
     return (
       <div className ='userInfo row'>
         <div className = 'col col-md-3'>
-          <img className='profilePic' src = {`/images/users/${this.state.user_id}.jpg`} />
+          <img className='profilePic' src = {this.state.user.user_image} />
         </div>
         <div className = 'col col-md-4'>
           <ul className='userDetails'>
             <li>Username: {this.state.user.user_username}</li>
             <li>Full name: {this.state.user.user_first_name}  {this.state.user.user_surname}</li>
+            <li>Latest game: {this.state.latestGame ? this.state.latestGame.game_name : "No games registered yet"}</li>
             <li><Link to={`/users/${this.state.user.id}/library`}>View library</Link></li>
           </ul>
         </div>

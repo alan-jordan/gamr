@@ -19,12 +19,21 @@ export default class Home extends React.Component {
     this.refreshUsers()
   }
 
-  refreshUsers() {
-    api.getLatestUsers((users) => {
-      this.setState({users})
+  renderUsers(users) {
+    this.setState({
+      users: users || []
     })
-    this.addFormInvisible()
   }
+
+  refreshUsers(error) {
+    this.setState({
+      error: error,
+      addVisible: false
+    })
+    api.getLatestUsers(this.renderUsers.bind(this))
+  }
+
+
 
   saveUser(user) {
     api.addUser(user, (err) => {
