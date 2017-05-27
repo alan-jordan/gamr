@@ -197,6 +197,7 @@ test('Get /igdbapi/games/:id polls correctly', (t) => {
     .expect(200)
     .then((res) => {
       return new Promise((resolve, reject) => {
+        console.log(res.body);
         t.is(res.body.name, "Oddworld: Munch's Oddysee")
         resolve()
       })
