@@ -6,36 +6,22 @@ import * as api from '../api'
 export default class AddUser extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {...props.user} || {
-      user_username: '',
-      user_first_name: '',
-      user_surname: '',
-      user_dob: ''
+    this.state = {
+      user: {}
     }
   }
 
-  componentWillReceiveProps(nextProps, nextState) {
-   if (this.state != nextProps.user) {
-     this.setState({...nextProps.user})
-   }
-  }
 
   handleSubmit(evt) {
     evt.preventDefault()
     this.props.saveCallback(this.state.user)
-    this.setState({user: ''})
+    this.setState({user: null})
   }
 
   handleChange(evt) {
     let user = {...this.state.user}
     user[evt.target.name] = evt.target.value
     this.setState({user})
-  }
-
-  saveUser (evt) {
-    evt.preventDefault()
-    const user = this.state
-    this.props.submitCallback(user)
   }
 
   render() {

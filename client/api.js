@@ -27,9 +27,9 @@ export function getLatestUsers(callback) {
 export function addUser(userObj, callback) {
   request
     .post('/api-v1/users/add')
-    .send(userObj)
+    .send(userObj.user)
     .end((err, res) => {
-      err ? callback(err) : callback(res.body)
+      err ? callback(err) : callback(null)
     })
 }
 

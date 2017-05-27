@@ -3146,8 +3146,8 @@ function getLatestUsers(callback) {
 }
 
 function addUser(userObj, callback) {
-  _superagent2.default.post('/api-v1/users/add').send(userObj).end(function (err, res) {
-    err ? callback(err) : callback(res.body);
+  _superagent2.default.post('/api-v1/users/add').send(userObj.user).end(function (err, res) {
+    err ? callback(err) : callback(null);
   });
 }
 
@@ -11242,28 +11242,18 @@ var AddUser = function (_React$Component) {
 
     var _this = _possibleConstructorReturn(this, (AddUser.__proto__ || Object.getPrototypeOf(AddUser)).call(this, props));
 
-    _this.state = _extends({}, props.user) || {
-      user_username: '',
-      user_first_name: '',
-      user_surname: '',
-      user_dob: ''
+    _this.state = {
+      user: {}
     };
     return _this;
   }
 
   _createClass(AddUser, [{
-    key: 'componentWillReceiveProps',
-    value: function componentWillReceiveProps(nextProps, nextState) {
-      if (this.state != nextProps.user) {
-        this.setState(_extends({}, nextProps.user));
-      }
-    }
-  }, {
     key: 'handleSubmit',
     value: function handleSubmit(evt) {
       evt.preventDefault();
       this.props.saveCallback(this.state.user);
-      this.setState({ user: '' });
+      this.setState({ user: null });
     }
   }, {
     key: 'handleChange',
@@ -11271,13 +11261,6 @@ var AddUser = function (_React$Component) {
       var user = _extends({}, this.state.user);
       user[evt.target.name] = evt.target.value;
       this.setState({ user: user });
-    }
-  }, {
-    key: 'saveUser',
-    value: function saveUser(evt) {
-      evt.preventDefault();
-      var user = this.state;
-      this.props.submitCallback(user);
     }
   }, {
     key: 'render',
@@ -11446,14 +11429,15 @@ var Home = function (_React$Component) {
       api.getLatestUsers(function (users) {
         _this2.setState({ users: users });
       });
+      this.addFormInvisible();
     }
   }, {
-    key: 'addUser',
-    value: function addUser(user) {
+    key: 'saveUser',
+    value: function saveUser(user) {
       var _this3 = this;
 
-      api.addUser(user, function () {
-        _this3.refreshUsers();
+      api.addUser(user, function (err) {
+        err ? console.log(err) : _this3.refreshUsers();
       });
     }
   }, {
@@ -11511,7 +11495,7 @@ var Home = function (_React$Component) {
               )
             ),
             this.state.addVisible && _react2.default.createElement(_AddUser2.default, {
-              saveCallback: this.addUser.bind(this),
+              saveCallback: this.saveUser.bind(this),
               cancelCallback: this.addFormInvisible.bind(this)
             }),
             this.state.users.map(function (user) {
@@ -11729,12 +11713,6 @@ var UserInfo = function (_React$Component) {
               this.state.user.user_first_name,
               '  ',
               this.state.user.user_surname
-            ),
-            _react2.default.createElement(
-              'li',
-              null,
-              'Last game added: ',
-              this.state.latestGame.game_name ? this.state.latestGame.game_name : 'No games added yet.'
             ),
             _react2.default.createElement(
               'li',

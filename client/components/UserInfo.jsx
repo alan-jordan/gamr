@@ -39,7 +39,6 @@ export default class UserInfo extends React.Component {
           <ul className='userDetails'>
             <li>Username: {this.state.user.user_username}</li>
             <li>Full name: {this.state.user.user_first_name}  {this.state.user.user_surname}</li>
-            <li>Last game added: {this.state.latestGame.game_name ? this.state.latestGame.game_name : 'No games added yet.'}</li>
             <li><Link to={`/users/${this.state.user.id}/library`}>View library</Link></li>
           </ul>
         </div>

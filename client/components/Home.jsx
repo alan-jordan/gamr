@@ -23,17 +23,19 @@ export default class Home extends React.Component {
     api.getLatestUsers((users) => {
       this.setState({users})
     })
+    this.addFormInvisible()
   }
 
-  addUser(user) {
-    api.addUser(user, () => {
-      this.refreshUsers()
+  saveUser(user) {
+    api.addUser(user, (err) => {
+      err ? console.log(err) : this.refreshUsers()
     })
   }
 
   addFormVisible() {
     this.setState({addVisible: true})
   }
+
   addFormInvisible() {
     this.setState({addVisible: false})
   }
@@ -54,7 +56,7 @@ export default class Home extends React.Component {
             <h2>New gamrs</h2>
               <p><a id='show-add-link' href='#' onClick={(e) => this.addFormVisible(e)}>Add user</a></p>
               {this.state.addVisible && <AddUser
-              saveCallback={this.addUser.bind(this)}
+              saveCallback={this.saveUser.bind(this)}
               cancelCallback={this.addFormInvisible.bind(this)}
               />}
             {this.state.users.map(user => <UserInfo user_id={user.id}/>)}
