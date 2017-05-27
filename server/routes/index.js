@@ -16,11 +16,21 @@ router.get('/users', (req, res) => {
 router.get('/users/:id', (req, res) => {
   db.getUser(req.params.id, req.app.get('connection'))
       .then((user) => {
-        res.json({user})
+        res.json(user)
       })
       .catch(function (err) {
         res.status(500).send('DATABASE ERROR: ' + err.message)
       })
+})
+
+router.get('/latestusers', (req, res) => {
+  db.getNumUsers(3, req.app.get('connection'))
+    .then(function(users) {
+      res.json(users)
+    })
+    .catch(function (err) {
+      res.status(500).send('DATABASE ERROR: ' + err.message)
+    })
 })
 
 router.put('/users/:id/update', (req, res) => {
@@ -109,6 +119,16 @@ router.get('/users/:id/games', (req, res) => {
       res.json({games})
     })
     .catch(function (err) {
+      res.status(500).send('DATABASE ERROR: ' + err.message)
+    })
+})
+
+router.get('/users/:id/latestgame', (req, res) => {
+  db.getUserLatestGame(req.params.id, req.app.get('connection'))
+    .then((game) => {
+      res.json(game)
+    })
+    .catch((err) => {
       res.status(500).send('DATABASE ERROR: ' + err.message)
     })
 })

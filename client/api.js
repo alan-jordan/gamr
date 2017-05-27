@@ -16,6 +16,31 @@ export function getUser(user_id, callback) {
     })
 }
 
+export function getLatestUsers(callback) {
+  request
+    .get('/api-v1/latestusers')
+    .end((err, res) => {
+      err ? callback(err) : callback(res.body)
+    })
+}
+
+export function addUser(userObj, callback) {
+  request
+    .post('/api-v1/users/add')
+    .send(userObj)
+    .end((err, res) => {
+      err ? callback(err) : callback(res.body)
+    })
+}
+
+export function getUserLatestGame(user_id, callback) {
+  request
+    .get(`/api-v1/users/${user_id}/latestgame`)
+    .end((err, res) => {
+      err ? callback(err) : callback(res.body)
+    })
+}
+
 export function getGames(callback) {
   request
     .get(`/api-v1/games`)

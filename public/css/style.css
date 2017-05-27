@@ -1,11 +1,15 @@
 body {
   background-color: #59ADB7;
   color: #171717;
+  font-family: 'Roboto', sans-serif;
 }
 ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
+}
+.navbar {
+  border-style: solid;
 }
 
 .header {
@@ -35,12 +39,26 @@ ul {
   margin-right: auto
 }
 
-
-.user_image {
+.profilePic {
   height: 150px;
   width: 150px;
 }
 
+.userInfo {
+  /*color: black;*/
+  margin: 5px 0 5px 0;
+  padding: 5px 0 5px 0;
+  border-style: solid;
+  background-color: #D55339;
+}
+
+.userDetails {
+  padding: 5px 0 5px 0;
+}
+
+.addUser {
+  
+}
 
 /* Coolors Exported Palette - coolors.co/d55339-e3aa55-59adb7-f5d8d4-171717 */
 

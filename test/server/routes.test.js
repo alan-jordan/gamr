@@ -13,10 +13,9 @@ test('GET /users/:id', (t) => {
     .expect(200)
     .then((res) => {
       return new Promise((resolve, reject) => {
-        const userJSON = JSON.parse(res.text)
-        t.is(userJSON.user[0].id, 99901)
-        t.is(userJSON.user[0].user_username, 'eljordy')
-        t.is(userJSON.user[0].user_dob, '1982-04-22')
+        t.is(res.body.id, 99901)
+        t.is(res.body.user_username, 'eljordy')
+        t.is(res.body.user_dob, '1982-04-22')
         resolve()
       })
     })
@@ -29,6 +28,30 @@ test('GET /users', (t) => {
     .then((res) => {
       return new Promise((resolve, reject) => {
         t.is(res.body.length, 3)
+        resolve()
+      })
+    })
+})
+
+test('GET /latestusers', t => {
+  return request(t.context.app)
+    .get('/api-v1/latestusers')
+    .expect(200)
+    .then((res) => {
+      return new Promise((resolve, reject) => {
+        t.is(res.body.length, 3)
+        resolve()
+      })
+    })
+})
+
+test('Get /users/:id/latestgame', t => {
+  return request(t.context.app)
+    .get('/api-v1/users/99903/latestgame')
+    .expect(200)
+    .then((res) => {
+      return new Promise((resolve, reject) => {
+        t.is(res.body.game_name, 'Super Mario Bros')
         resolve()
       })
     })
@@ -159,7 +182,7 @@ test('Get /users/:id:/games', (t) => {
     .then((res) => {
       return new Promise((resolve, reject) => {
         const gamesJSON = JSON.parse(res.text)
-        t.is(gamesJSON.games[1].game_name, "Super Marios Bros")
+        t.is(gamesJSON.games[1].game_name, "Super Mario Bros")
         t.is(gamesJSON.games[0].game_release_date, "2017-03-03")
         t.is(gamesJSON.games[2].game_id, 88803)
         resolve()

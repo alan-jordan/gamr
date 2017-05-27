@@ -33,13 +33,34 @@ test('getUsers gets all users', (t) => {
     })
 })
 
-test('getUsers gets a single user', function (t) {
+test('getNumUsers gets the correct number of users', t => {
+  return db.getNumUsers(3, t.context.connection)
+    .then((res) => {
+      return new Promise((resolve, reject) => {
+        t.is(res.length, 3)
+        resolve()
+      })
+    })
+})
+
+test('getUser gets a single user', function (t) {
   var expected = 'Nerf Herder'
   return db.getUser(99903, t.context.connection)
     .then(function (result) {
       return new Promise((resolve, reject) => {
-        var actual = result[0].user_username
+        var actual = result.user_username
         t.is(expected, actual)
+        resolve()
+      })
+    })
+})
+
+test('getUserLatestGame gets the right game', t => {
+  return db.getUserLatestGame(99901, t.context.connection)
+    .then((res) => {
+      return new Promise((resolve, reject) => {
+        t.is(res.game_id, 88801)
+        t.is(res.game_name, 'The Legend of Zelda: Breath of the Wild')
         resolve()
       })
     })
@@ -85,7 +106,7 @@ test('getGame gets the right game', (t) => {
   return db.getGame(88802, t.context.connection)
     .then((res) => {
       return new Promise((resolve, reject) => {
-        t.is(res[0].game_name, "Super Marios Bros")
+        t.is(res[0].game_name, "Super Mario Bros")
         resolve()
       })
     })
