@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom'
 
 import * as api from '../api'
 import LibraryItem from './LibraryItem'
+import AddGame from './AddGame'
 
 
 export default class Library extends React.Component {
@@ -13,13 +14,15 @@ export default class Library extends React.Component {
       user: '',
       userGames: {
         games: []
-      }
+      },
+      addFormVisible: false
     }
-    this.getUser()
-    this.getUserGames()
+
     }
 
   componentDidMount() {
+    this.getUser()
+    this.getUserGames()
   }
 
   getUser() {
@@ -33,6 +36,16 @@ export default class Library extends React.Component {
       this.setState({userGames})
     })
   }
+  addFormVisible() {
+    this.setState({addFormVisible: true})
+
+  }
+  addFormInvisible() {
+    this.setState({addFormVisible: false})
+  }
+  addGame() {
+
+  }
 
   render() {
     return (
@@ -41,7 +54,12 @@ export default class Library extends React.Component {
           <ul>
             <li>Username: {this.state.user.user_username}</li>
             <li>Real name: {this.state.user.user_first_name} {this.state.user.user_surname}</li>
-            <li></li>
+            <li><a id='show-addGame-link' href={`/#/users/${this.state.user_id}/library`} onClick={(e) => this.addFormVisible(e)}>Add game</a></li>
+            {this.state.addFormVisible && <AddGame
+            user_id={this.state.user.id}
+            saveCallback={this.addGame.bind(this)}
+            cancelCallback={this.addFormInvisible.bind(this)}
+            />}
           </ul>
         </div>
         <div className="col-md-10">

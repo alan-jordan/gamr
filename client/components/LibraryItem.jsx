@@ -21,7 +21,6 @@ export default class LibraryItem extends React.Component {
     getGame() {
       api.getGame(this.state.game_id, (game) => {
         this.setState({game})
-        console.log(this.state.game.game);
       })
     }
 

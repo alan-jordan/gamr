@@ -190,27 +190,15 @@ test('Get /users/:id:/games', (t) => {
     })
 })
 
-
-// test('Post to /user/99901/games/add works', (t) => {
-//   const addedGame = {
-//     game_name: 'Mario Kart 8 Deluxe',
-//     game_publisher_id: 2,
-//     date_purchased: "2017-04-25",
-//     game_series_id: 4,
-//     system_purchased_on_id: 1
-//   }
-//   return request(t.context.app)
-//     .post('/api-v1/users/99901/games/add')
-//     .send(addedGame)
-//     .expect(302)
-//     .then((res) => {
-//       t.context.connection('games').select()
-//         .then((games) => {
-//           new Promise((resolve, reject) => {
-//             t.is(games.length, 4)
-//             resolve()
-//           })
-//         })
-//       })
-//
-// })
+// External api
+test('Get /igdbapi/games/:id polls correctly', (t) => {
+  return request(t.context.app)
+    .get('/api-v1/igdbapi/games/1001')
+    .expect(200)
+    .then((res) => {
+      return new Promise((resolve, reject) => {
+        t.is(res.body.name, "Oddworld: Munch's Oddysee")
+        resolve()
+      })
+    })
+})

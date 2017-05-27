@@ -1,7 +1,12 @@
 var express = require('express')
 var router = express.Router()
+var request = require('superagent')
 
 var db = require('../db')
+
+var mashapeKey = '8XrLHLkRxlmshascF7n3mXc7CtoVp1RQN3Yjsn4ISq8ddFmTDT'
+var url = 'https://igdbcom-internet-game-database-v1.p.mashape.com'
+
 
 router.get('/users', (req, res) => {
   db.getUsers(req.app.get('connection'))
@@ -132,6 +137,21 @@ router.get('/users/:id/latestgame', (req, res) => {
       res.status(500).send('DATABASE ERROR: ' + err.message)
     })
 })
+
+router.get('/igdbapi/games/:id', (req, res) => {
+  request
+  .get(`${url}/games/${req.params.id}?fields=*`)
+  .set('X-Mashape-Key', mashapeKey)
+  .set('Accept', 'application/json')
+  .end(function(error, response) {
+    if(error) {
+      callback('Oh no error!' + err)
+    } else {
+      res.json(response.body)
+    }
+  })
+})
+
 
 
 
