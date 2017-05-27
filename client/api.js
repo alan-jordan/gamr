@@ -49,6 +49,15 @@ export function getGames(callback) {
     })
 }
 
+export function getGame(game_id, callback) {
+  request
+    .get(`/api-v1/games/${game_id}`)
+    .end((err, res) => {
+      err ? callback(err) : callback(res.body)
+    })
+}
+
+
 export function getUserGames(user_id, callback)  {
   request
     .get(`/api-v1/users/${user_id}/games`)
