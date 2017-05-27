@@ -48,3 +48,11 @@ export function getGames(callback) {
       err ? callback(err) : callback(res.body)
     })
 }
+
+export function getUserGames(user_id, callback)  {
+  request
+    .get(`/api-v1/users/${user_id}/games`)
+    .end((err, res) => {
+      err ? callback(err) : callback(res.body)
+    })
+}

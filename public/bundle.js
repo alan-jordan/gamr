@@ -3119,6 +3119,7 @@ exports.getLatestUsers = getLatestUsers;
 exports.addUser = addUser;
 exports.getUserLatestGame = getUserLatestGame;
 exports.getGames = getGames;
+exports.getUserGames = getUserGames;
 
 var _superagent = __webpack_require__(230);
 
@@ -3158,6 +3159,12 @@ function getUserLatestGame(user_id, callback) {
 
 function getGames(callback) {
   _superagent2.default.get('/api-v1/games').end(function (err, res) {
+    err ? callback(err) : callback(res.body);
+  });
+}
+
+function getUserGames(user_id, callback) {
+  _superagent2.default.get('/api-v1/users/' + user_id + '/games').end(function (err, res) {
     err ? callback(err) : callback(res.body);
   });
 }

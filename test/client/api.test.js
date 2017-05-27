@@ -63,3 +63,15 @@ test.cb('api.getGames', t => {
     t.end()
   })
 })
+
+test.cb('api.getUserGames', t => {
+  let scope = nock('http://localhost:80')
+    .get('/api-v1/users/99901/games')
+    .reply(200, {message: 'getUserGames working'})
+
+    api.getUserGames(99901, (actual) => {
+      scope.done()
+      t.is(actual.message, 'getUserGames working')
+      t.end()
+    })
+})
