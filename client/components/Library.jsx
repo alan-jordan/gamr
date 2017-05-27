@@ -9,7 +9,8 @@ export default class Library extends React.Component {
     super(props)
     this.state = {
       user_id: props.match.params.id,
-      user: ''
+      user: '',
+      userGames: {}
       }
     }
 
@@ -23,10 +24,16 @@ export default class Library extends React.Component {
       })
     }
 
+    getUserGames() {
+      api.getUserGames(this.state.user_id, (userGames) => {
+        this.setState({userGames})
+      })
+    }
+
   render() {
     return (
       <div>
-        {console.log(this.state.user)}
+
       </div>
     )
   }

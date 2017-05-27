@@ -24,6 +24,15 @@ export function getLatestUsers(callback) {
     })
 }
 
+export function addUser(userObj, callback) {
+  request
+    .post('/api-v1/users/add')
+    .send(userObj)
+    .end((err, res) => {
+      err ? callback(err) : callback(res.body)
+    })
+}
+
 export function getUserLatestGame(user_id, callback) {
   request
     .get(`/api-v1/users/${user_id}/latestgame`)

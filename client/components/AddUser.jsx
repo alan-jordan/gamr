@@ -14,8 +14,16 @@ export default class AddUser extends React.Component {
     }
   }
 
+  componentWillReceiveProps(nextProps, nextState) {
+   if (this.state != nextProps.user) {
+     this.setState({...nextProps.user})
+   }
+  }
+
   handleSubmit(evt) {
     evt.preventDefault()
+    this.props.saveCallback(this.state.user)
+    this.setState({user: ''})
   }
 
   handleChange(evt) {
@@ -24,20 +32,24 @@ export default class AddUser extends React.Component {
     this.setState({user})
   }
 
+  saveUser (evt) {
+    evt.preventDefault()
+    const user = this.state
+    this.props.submitCallback(user)
+  }
+
   render() {
     return(
       <div className='addUserForm'>
         <form onSubmit={(evt) => this.handleSubmit(evt)}>
           <label>Username: </label>
-          <input type='text' name='user_username' placeholder = "Username" onChange={(evt =>this.handleChange(evt))}/><br/>
+          <input type='text' name='user_username' value={this.state.user_username} placeholder = "Username" onChange={(evt =>this.handleChange(evt))}/><br/>
           <label>First name: </label>
-          <input type='text' name='user_first_name' placeholder = "First Name" onChange={(evt =>this.handleChange(evt))}/><br/>
+          <input type='text' name='user_first_name' value={this.state.user_first_name} placeholder = "First Name" onChange={(evt =>this.handleChange(evt))}/><br/>
           <label>Surname: </label>
-          <input type='text' name='user_surname' placeholder = "Surname" onChange={(evt =>this.handleChange(evt))}/><br/>
-          <label>Date of birth:</label>
-          <input class="datepicker" data-date-format="mm/dd/yyyy"/>
-          {$('.datepicker').datepicker()}
-          <input type='submit' value="Save"/>
+          <input type='text' name='user_surname' value={this.state.user_surname} placeholder = "Surname" onChange={(evt =>this.handleChange(evt))}/><br/>
+           <input type='submit' value='add gamr' />
+          <a href='#' onClick={this.props.cancelCallback}>Cancel</a>
         </form>
       </div>
     )

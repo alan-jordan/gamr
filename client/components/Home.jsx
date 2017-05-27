@@ -25,9 +25,9 @@ export default class Home extends React.Component {
     })
   }
 
-  addUser() {
-    api.addUser(user, (error) => {
-      error ? this.setState({error}) : this.refreshUsers()
+  addUser(user) {
+    api.addUser(user, () => {
+      this.refreshUsers()
     })
   }
 
@@ -54,7 +54,7 @@ export default class Home extends React.Component {
             <h2>New gamrs</h2>
               <p><a id='show-add-link' href='#' onClick={(e) => this.addFormVisible(e)}>Add user</a></p>
               {this.state.addVisible && <AddUser
-              submitCallback={this.addUser.bind(this)}
+              saveCallback={this.addUser.bind(this)}
               cancelCallback={this.addFormInvisible.bind(this)}
               />}
             {this.state.users.map(user => <UserInfo user_id={user.id}/>)}
