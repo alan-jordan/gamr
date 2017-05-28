@@ -2194,7 +2194,7 @@ function getUserGames(user_id, callback) {
 }
 
 function searchStringIGDB(searchStr, callback) {
-  _superagent2.default.get('/apir-v1/igdbapi/games/' + searchStr).end(function (err, res) {
+  _superagent2.default.get('/api-v1/igdbapi/games/' + searchStr).end(function (err, res) {
     err ? callback(err) : callback(res.body);
   });
 }
@@ -11302,17 +11302,11 @@ var AddGame = function (_React$Component) {
     }
   }, {
     key: 'searchGames',
-    value: function searchGames(game) {
-      var _this3 = this;
-
-      api.searchStringIGDB(game, function (games) {
-        _this3.setState({ games: games });
-      });
-    }
+    value: function searchGames(game) {}
   }, {
     key: 'render',
     value: function render() {
-      var _this4 = this;
+      var _this3 = this;
 
       return _react2.default.createElement(
         'div',
@@ -11320,7 +11314,7 @@ var AddGame = function (_React$Component) {
         _react2.default.createElement(
           'form',
           { onSubmit: function onSubmit(evt) {
-              return _this4.handleSubmit(evt);
+              return _this3.handleSubmit(evt);
             } },
           _react2.default.createElement(
             'label',
@@ -28414,6 +28408,8 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = __webpack_require__(5);
@@ -28444,7 +28440,9 @@ var SearchGame = function (_React$Component) {
 
     var _this = _possibleConstructorReturn(this, (SearchGame.__proto__ || Object.getPrototypeOf(SearchGame)).call(this, props));
 
-    _this.state = {};
+    _this.state = {
+      searchStr: ''
+    };
     return _this;
   }
 
@@ -28452,18 +28450,33 @@ var SearchGame = function (_React$Component) {
     key: 'componentDidMount',
     value: function componentDidMount() {}
   }, {
+    key: 'searchIgdb',
+    value: function searchIgdb() {
+      api.searchStringIGDB(this.state.searchStr, console.log);
+    }
+  }, {
+    key: 'renderSearchResults',
+    value: function renderSearchResults() {}
+  }, {
+    key: 'handleChange',
+    value: function handleChange(evt) {
+      var searchStr = _extends({}, this.state.searchStr)[evt.target.name] = evt.target.value;
+      this.setState({ searchStr: searchStr });
+      this.searchIgdb();
+    }
+  }, {
     key: 'render',
     value: function render() {
       var _this2 = this;
 
       return _react2.default.createElement(
         'div',
-        null,
-        _react2.default.createElement('input', { type: 'text', name: 'game_name', value: 'test', placeholder: 'Search for a game', onChange: function onChange(evt) {
+        { id: 'addGameForm' },
+        _react2.default.createElement('input', { type: 'text', name: 'searchStr', value: this.state.searchStr, placeholder: 'Search for a game', onChange: function onChange(evt) {
             return _this2.handleChange(evt);
           } }),
         _react2.default.createElement('br', null),
-        _react2.default.createElement('input', { type: 'submit', value: 'add gamr' })
+        _react2.default.createElement('input', { type: 'submit', value: 'add game to collection' })
       );
     }
   }]);

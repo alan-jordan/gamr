@@ -38,9 +38,7 @@ export default class AddGame extends React.Component {
   }
 
   searchGames (game) {
-    api.searchStringIGDB(game, (games) => {
-      this.setState({games})
-    })
+
   }
 
 
