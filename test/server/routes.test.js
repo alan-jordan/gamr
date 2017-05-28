@@ -197,8 +197,19 @@ test('Get /igdbapi/games/:id polls correctly', (t) => {
     .expect(200)
     .then((res) => {
       return new Promise((resolve, reject) => {
-        console.log(res.body);
-        t.is(res.body.name, "Oddworld: Munch's Oddysee")
+        t.is(res.body[0].name, "Oddworld: Munch's Oddysee")
+        resolve()
+      })
+    })
+})
+
+test('Get /igdbapi/games/search/:searchstr polls correctly', (t) => {
+  return request(t.context.app)
+    .get('/api-v1/igdbpai/games/search/mario+kart+8+deluxe')
+    .expect(200)
+    .then((res) => {
+      return new Promise((resolve, reject) => {
+        t.is(res.body[0].name, "Mario Kart 8 Deluxe")
         resolve()
       })
     })

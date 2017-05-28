@@ -32,9 +32,4 @@ function displayGame(callback, id) {
     })
 }
 
-igdb.games({
-  search: "legend of zelda: breath of the wild",
-  limit: 5,
-  offset: 0,
-  order: "release_dates.date:desc",
-}, ["name","cover.cloudinary_id"]).then(console.log);
+searchGames(console.log, 'Sonic the Hedgehog')

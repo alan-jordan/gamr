@@ -2137,6 +2137,7 @@ exports.getUserLatestGame = getUserLatestGame;
 exports.getGames = getGames;
 exports.getGame = getGame;
 exports.getUserGames = getUserGames;
+exports.searchStringIGDB = searchStringIGDB;
 
 var _superagent = __webpack_require__(232);
 
@@ -2188,6 +2189,12 @@ function getGame(game_id, callback) {
 
 function getUserGames(user_id, callback) {
   _superagent2.default.get('/api-v1/users/' + user_id + '/games').end(function (err, res) {
+    err ? callback(err) : callback(res.body);
+  });
+}
+
+function searchStringIGDB(searchStr, callback) {
+  _superagent2.default.get('/apir-v1/igdbapi/games/' + searchStr).end(function (err, res) {
     err ? callback(err) : callback(res.body);
   });
 }
@@ -11231,6 +11238,14 @@ var _api = __webpack_require__(18);
 
 var api = _interopRequireWildcard(_api);
 
+var _SearchGame = __webpack_require__(240);
+
+var _SearchGame2 = _interopRequireDefault(_SearchGame);
+
+var _ListSearchGameResults = __webpack_require__(239);
+
+var _ListSearchGameResults2 = _interopRequireDefault(_ListSearchGameResults);
+
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -11251,7 +11266,8 @@ var AddGame = function (_React$Component) {
 
     _this.state = {
       user: {},
-      game: {}
+      game: {},
+      games: {}
     };
     return _this;
   }
@@ -11281,13 +11297,22 @@ var AddGame = function (_React$Component) {
     key: 'handleChange',
     value: function handleChange(evt) {
       var game = _extends({}, this.state.game);
-      user[evt.target.name] = evt.target.value;
+      game[evt.target.name] = evt.target.value;
       this.setState({ game: game });
+    }
+  }, {
+    key: 'searchGames',
+    value: function searchGames(game) {
+      var _this3 = this;
+
+      api.searchStringIGDB(game, function (games) {
+        _this3.setState({ games: games });
+      });
     }
   }, {
     key: 'render',
     value: function render() {
-      var _this3 = this;
+      var _this4 = this;
 
       return _react2.default.createElement(
         'div',
@@ -11295,18 +11320,15 @@ var AddGame = function (_React$Component) {
         _react2.default.createElement(
           'form',
           { onSubmit: function onSubmit(evt) {
-              return _this3.handleSubmit(evt);
+              return _this4.handleSubmit(evt);
             } },
           _react2.default.createElement(
             'label',
             null,
             'Find a game: '
           ),
-          _react2.default.createElement('input', { type: 'text', name: 'game_name', value: this.state.user_username, placeholder: 'Search for a game', onChange: function onChange(evt) {
-              return _this3.handleChange(evt);
-            } }),
-          _react2.default.createElement('br', null),
-          _react2.default.createElement('input', { type: 'submit', value: 'add gamr' }),
+          _react2.default.createElement(_SearchGame2.default, { searchGames: this.searchGames.bind(this) }),
+          _react2.default.createElement(_ListSearchGameResults2.default, { games: this.state.games }),
           _react2.default.createElement(
             'a',
             { href: '/#/users/' + this.state.user.id + '/library', onClick: this.props.cancelCallback },
@@ -28320,6 +28342,136 @@ var valueEqual = function valueEqual(a, b) {
 };
 
 exports.default = valueEqual;
+
+/***/ }),
+/* 239 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(5);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRouterDom = __webpack_require__(17);
+
+var _api = __webpack_require__(18);
+
+var api = _interopRequireWildcard(_api);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var ListSearchGameResults = function (_React$Component) {
+  _inherits(ListSearchGameResults, _React$Component);
+
+  function ListSearchGameResults(props) {
+    _classCallCheck(this, ListSearchGameResults);
+
+    var _this = _possibleConstructorReturn(this, (ListSearchGameResults.__proto__ || Object.getPrototypeOf(ListSearchGameResults)).call(this, props));
+
+    _this.state = {};
+    return _this;
+  }
+
+  _createClass(ListSearchGameResults, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {}
+  }, {
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement('div', null);
+    }
+  }]);
+
+  return ListSearchGameResults;
+}(_react2.default.Component);
+
+exports.default = ListSearchGameResults;
+
+/***/ }),
+/* 240 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(5);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRouterDom = __webpack_require__(17);
+
+var _api = __webpack_require__(18);
+
+var api = _interopRequireWildcard(_api);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var SearchGame = function (_React$Component) {
+  _inherits(SearchGame, _React$Component);
+
+  function SearchGame(props) {
+    _classCallCheck(this, SearchGame);
+
+    var _this = _possibleConstructorReturn(this, (SearchGame.__proto__ || Object.getPrototypeOf(SearchGame)).call(this, props));
+
+    _this.state = {};
+    return _this;
+  }
+
+  _createClass(SearchGame, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {}
+  }, {
+    key: 'render',
+    value: function render() {
+      var _this2 = this;
+
+      return _react2.default.createElement(
+        'div',
+        null,
+        _react2.default.createElement('input', { type: 'text', name: 'game_name', value: 'test', placeholder: 'Search for a game', onChange: function onChange(evt) {
+            return _this2.handleChange(evt);
+          } }),
+        _react2.default.createElement('br', null),
+        _react2.default.createElement('input', { type: 'submit', value: 'add gamr' })
+      );
+    }
+  }]);
+
+  return SearchGame;
+}(_react2.default.Component);
+
+exports.default = SearchGame;
 
 /***/ })
 /******/ ]);

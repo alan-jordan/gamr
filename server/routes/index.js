@@ -140,19 +140,30 @@ router.get('/users/:id/latestgame', (req, res) => {
 
 router.get('/igdbapi/games/:id', (req, res) => {
   request
-  .get(`${url}/games/${req.params.id}?fields=*`)
-  .set('X-Mashape-Key', mashapeKey)
-  .set('Accept', 'application/json')
-  .end(function(error, response) {
-    if(error) {
-      callback('Oh no error!' + err)
-    } else {
-      res.json(response.body)
-    }
-  })
+    .get(`${url}/games/${req.params.id}?fields=*`)
+    .set('X-Mashape-Key', mashapeKey)
+    .set('Accept', 'application/json')
+    .end(function(error, response) {
+      if(error) {
+        res.send('Oh no error!' + error)
+      } else {
+        res.json(response.body)
+      }
+    })
 })
 
-
-
+router.get('/igdbpai/games/search/:searchstr', (req, res) => {
+  request
+    .get(`${url}/games/?fields=name&search=${req.params.searchstr}`)
+    .set('X-Mashape-Key', mashapeKey)
+    .set('Accept', 'application/json')
+    .end(function(error, response) {
+      if(error) {
+        res.send('Oh no error!' + error)
+      } else {
+        res.json(response.body)
+      }
+    })
+})
 
 module.exports = router

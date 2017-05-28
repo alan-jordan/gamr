@@ -65,3 +65,11 @@ export function getUserGames(user_id, callback)  {
       err ? callback(err) : callback(res.body)
     })
 }
+
+export function searchStringIGDB(searchStr, callback) {
+  request
+    .get(`/apir-v1/igdbapi/games/${searchStr}`)
+    .end((err, res) => {
+      err ? callback(err) : callback(res.body)
+    })
+}

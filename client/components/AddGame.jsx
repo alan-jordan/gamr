@@ -2,13 +2,16 @@ import React from 'react'
 import {Link} from 'react-router-dom'
 
 import * as api from '../api'
+import SearchGame from './SearchGame'
+import ListSearchGameResults from './ListSearchGameResults'
 
 export default class AddGame extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
       user: {},
-      game: {}
+      game: {},
+      games: {}
     }
   }
 
@@ -30,8 +33,14 @@ export default class AddGame extends React.Component {
 
   handleChange(evt) {
     let game = {...this.state.game}
-    user[evt.target.name] = evt.target.value
+    game[evt.target.name] = evt.target.value
     this.setState({game})
+  }
+
+  searchGames (game) {
+    api.searchStringIGDB(game, (games) => {
+      this.setState({games})
+    })
   }
 
 
@@ -40,8 +49,8 @@ export default class AddGame extends React.Component {
       <div className='addGameForm'>
         <form onSubmit={(evt) => this.handleSubmit(evt)}>
           <label>Find a game: </label>
-          <input type='text' name='game_name' value={this.state.user_username} placeholder = "Search for a game" onChange={(evt =>this.handleChange(evt))}/><br/>
-          <input type='submit' value='add gamr' />
+          <SearchGame searchGames={this.searchGames.bind(this)}/>
+          <ListSearchGameResults games={this.state.games}/>
           <a href={`/#/users/${this.state.user.id}/library`} onClick={this.props.cancelCallback}>Cancel</a>
         </form>
       </div>
