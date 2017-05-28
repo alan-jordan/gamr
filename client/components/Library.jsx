@@ -56,7 +56,7 @@ export default class Library extends React.Component {
             <li>Real name: {this.state.user.user_first_name} {this.state.user.user_surname}</li>
             <li><a id='show-addGame-link' href={`/#/users/${this.state.user_id}/library`} onClick={(e) => this.addFormVisible(e)}>Add game</a></li>
             {this.state.addFormVisible && <AddGame
-            user_id={this.state.user.id}
+            user_id={this.state.user_id}
             saveCallback={this.addGame.bind(this)}
             cancelCallback={this.addFormInvisible.bind(this)}
             />}

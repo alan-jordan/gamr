@@ -16,6 +16,7 @@ export default class SearchGame extends React.Component {
 
     componentDidMount() {
       api.searchStringIGDB(null, this.renderResults.bind(this))
+      console.log(this.props);
     }
 
     searchIgdb() {
@@ -32,11 +33,15 @@ export default class SearchGame extends React.Component {
       this.searchIgdb()
     }
 
+    addGame(user_id, game_id) {
+      
+    }
+
     renderResults() {
       return(
         <div>
           {this.state.games.map((game, i) => {
-            return <li key={i}><a href='#'>{game.name}</a></li>
+            return <li key={i}><a href={`/#/users/${this.state.user_id}/library`} onClick={this.addGame(this.state.user_id, game.id)}>{game.name}</a></li>
           })}
         </div>
       )

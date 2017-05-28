@@ -11265,6 +11265,7 @@ var AddGame = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (AddGame.__proto__ || Object.getPrototypeOf(AddGame)).call(this, props));
 
     _this.state = {
+      user_id: _this.props.user_id,
       user: {},
       game: {},
       games: {}
@@ -11321,8 +11322,7 @@ var AddGame = function (_React$Component) {
             null,
             'Find a game: '
           ),
-          _react2.default.createElement(_SearchGame2.default, { user_id: this.state.user.id, searchGames: this.searchGames.bind(this) }),
-          _react2.default.createElement(_ListSearchGameResults2.default, { games: this.state.games }),
+          _react2.default.createElement(_SearchGame2.default, { user_id: this.state.user_id, searchGames: this.searchGames.bind(this) }),
           _react2.default.createElement(
             'a',
             { href: '/#/users/' + this.state.user.id + '/library', onClick: this.props.cancelCallback },
@@ -11804,7 +11804,7 @@ var Library = function (_React$Component) {
               )
             ),
             this.state.addFormVisible && _react2.default.createElement(_AddGame2.default, {
-              user_id: this.state.user.id,
+              user_id: this.state.user_id,
               saveCallback: this.addGame.bind(this),
               cancelCallback: this.addFormInvisible.bind(this)
             })
@@ -12047,6 +12047,7 @@ var SearchGame = function (_React$Component) {
     key: 'componentDidMount',
     value: function componentDidMount() {
       api.searchStringIGDB(null, this.renderResults.bind(this));
+      console.log(this.props);
     }
   }, {
     key: 'searchIgdb',
@@ -12066,8 +12067,13 @@ var SearchGame = function (_React$Component) {
       this.searchIgdb();
     }
   }, {
+    key: 'addGame',
+    value: function addGame(user_id, game_id) {}
+  }, {
     key: 'renderResults',
     value: function renderResults() {
+      var _this3 = this;
+
       return _react2.default.createElement(
         'div',
         null,
@@ -12077,7 +12083,7 @@ var SearchGame = function (_React$Component) {
             { key: i },
             _react2.default.createElement(
               'a',
-              { href: '#' },
+              { href: '/#/users/' + _this3.state.user_id + '/library', onClick: _this3.addGame(_this3.state.user_id, game.id) },
               game.name
             )
           );
@@ -12087,13 +12093,13 @@ var SearchGame = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-      var _this3 = this;
+      var _this4 = this;
 
       return _react2.default.createElement(
         'div',
         { id: 'addGameForm' },
         _react2.default.createElement('input', { type: 'text', name: 'searchStr', value: this.state.searchStr, placeholder: 'Search for a game', onChange: function onChange(evt) {
-            return _this3.handleChange(evt);
+            return _this4.handleChange(evt);
           } }),
         _react2.default.createElement('br', null),
         this.renderResults(),

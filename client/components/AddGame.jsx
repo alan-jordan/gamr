@@ -9,6 +9,7 @@ export default class AddGame extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
+      user_id: this.props.user_id,
       user: {},
       game: {},
       games: {}
@@ -47,8 +48,7 @@ export default class AddGame extends React.Component {
       <div className='addGameForm'>
         <form onSubmit={(evt) => this.handleSubmit(evt)}>
           <label>Find a game: </label>
-          <SearchGame user_id={this.state.user.id} searchGames={this.searchGames.bind(this)}/>
-          <ListSearchGameResults games={this.state.games}/>
+          <SearchGame user_id={this.state.user_id} searchGames={this.searchGames.bind(this)}/>
           <a href={`/#/users/${this.state.user.id}/library`} onClick={this.props.cancelCallback}>Cancel</a>
         </form>
       </div>
