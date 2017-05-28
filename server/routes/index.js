@@ -152,7 +152,7 @@ router.get('/igdbapi/games/:id', (req, res) => {
     })
 })
 
-router.get('/igdbpai/games/search/:searchstr', (req, res) => {
+router.get('/igdbapi/games/search/:searchstr', (req, res) => {
   request
     .get(`${url}/games/?fields=name&search=${req.params.searchstr}`)
     .set('X-Mashape-Key', mashapeKey)
