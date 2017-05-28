@@ -11321,7 +11321,7 @@ var AddGame = function (_React$Component) {
             null,
             'Find a game: '
           ),
-          _react2.default.createElement(_SearchGame2.default, { searchGames: this.searchGames.bind(this) }),
+          _react2.default.createElement(_SearchGame2.default, { user_id: this.state.user.id, searchGames: this.searchGames.bind(this) }),
           _react2.default.createElement(_ListSearchGameResults2.default, { games: this.state.games }),
           _react2.default.createElement(
             'a',
@@ -12013,6 +12013,10 @@ var _api = __webpack_require__(16);
 
 var api = _interopRequireWildcard(_api);
 
+var _RenderSearchResults = __webpack_require__(241);
+
+var _RenderSearchResults2 = _interopRequireDefault(_RenderSearchResults);
+
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -12033,51 +12037,66 @@ var SearchGame = function (_React$Component) {
 
     _this.state = {
       searchStr: '',
-      games: []
+      games: [],
+      user_id: _this.props.user_id
     };
     return _this;
   }
 
   _createClass(SearchGame, [{
     key: 'componentDidMount',
-    value: function componentDidMount() {}
+    value: function componentDidMount() {
+      api.searchStringIGDB(null, this.renderResults.bind(this));
+    }
   }, {
     key: 'searchIgdb',
     value: function searchIgdb() {
-      api.searchStringIGDB(this.state.searchStr, this.setState());
-    }
-  }, {
-    key: 'renderResults',
-    value: function renderResults() {
-      return this.state.games.map(function (game) {
-        console.log(game.name);
-        return _react2.default.createElement(
-          'p',
-          null,
-          game.name
-        );
+      var _this2 = this;
+
+      api.searchStringIGDB(this.state.searchStr, function (games) {
+        _this2.setState({ games: games });
       });
     }
   }, {
     key: 'handleChange',
     value: function handleChange(evt) {
+      evt.preventDefault();
       var searchStr = _extends({}, this.state.searchStr)[evt.target.name] = evt.target.value;
       this.setState({ searchStr: searchStr });
       this.searchIgdb();
     }
   }, {
+    key: 'renderResults',
+    value: function renderResults() {
+      return _react2.default.createElement(
+        'div',
+        null,
+        this.state.games.map(function (game, i) {
+          return _react2.default.createElement(
+            'li',
+            { key: i },
+            _react2.default.createElement(
+              'a',
+              { href: '#' },
+              game.name
+            )
+          );
+        })
+      );
+    }
+  }, {
     key: 'render',
     value: function render() {
-      var _this2 = this;
+      var _this3 = this;
 
       return _react2.default.createElement(
         'div',
         { id: 'addGameForm' },
         _react2.default.createElement('input', { type: 'text', name: 'searchStr', value: this.state.searchStr, placeholder: 'Search for a game', onChange: function onChange(evt) {
-            return _this2.handleChange(evt);
+            return _this3.handleChange(evt);
           } }),
         _react2.default.createElement('br', null),
-        this.renderResults,
+        this.renderResults(),
         _react2.default.createElement('input', { type: 'submit', value: 'add game to collection' })
       );
     }
@@ -28496,6 +28515,46 @@ var valueEqual = function valueEqual(a, b) {
 };
 
 exports.default = valueEqual;
+
+/***/ }),
+/* 241 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(4);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = function (props) {
+  console.log(props);
+  return _react2.default.createElement(
+    'div',
+    null,
+    _react2.default.createElement(
+      'ul',
+      null,
+      props.games.map(function (game, i) {
+        return _react2.default.createElement(
+          'li',
+          { key: i },
+          _react2.default.createElement(
+            'a',
+            { href: game.id, target: '_blank' },
+            game.name
+          )
+        );
+      })
+    )
+  );
+};
 
 /***/ })
 /******/ ]);

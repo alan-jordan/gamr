@@ -47,7 +47,7 @@ export default class AddGame extends React.Component {
       <div className='addGameForm'>
         <form onSubmit={(evt) => this.handleSubmit(evt)}>
           <label>Find a game: </label>
-          <SearchGame searchGames={this.searchGames.bind(this)}/>
+          <SearchGame user_id={this.state.user.id} searchGames={this.searchGames.bind(this)}/>
           <ListSearchGameResults games={this.state.games}/>
           <a href={`/#/users/${this.state.user.id}/library`} onClick={this.props.cancelCallback}>Cancel</a>
         </form>
