@@ -205,7 +205,7 @@ test('Get /igdbapi/games/:id polls correctly', (t) => {
 
 test('Get /igdbapi/games/search/:searchstr polls correctly', (t) => {
   return request(t.context.app)
-    .get('/api-v1/igdbpai/games/search/mario+kart+8+deluxe')
+    .get('/api-v1/igdbapi/games/search/mario+kart+8+deluxe')
     .expect(200)
     .then((res) => {
       return new Promise((resolve, reject) => {
