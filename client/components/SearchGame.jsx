@@ -34,14 +34,14 @@ export default class SearchGame extends React.Component {
     }
 
     addGame(user_id, game_id) {
-      
+
     }
 
     renderResults() {
       return(
         <div>
           {this.state.games.map((game, i) => {
-            return <li key={i}><a href={`/#/users/${this.state.user_id}/library`} onClick={this.addGame(this.state.user_id, game.id)}>{game.name}</a></li>
+            return <li key={i} className='addGameResult' ><a href={`/#/users/${this.state.user_id}/library`} onClick={this.addGame(this.state.user_id, game.id)}>{game.name}</a></li>
           })}
         </div>
       )
@@ -51,7 +51,9 @@ export default class SearchGame extends React.Component {
     return (
       <div id='addGameForm'>
         <input type='text' name='searchStr' value={this.state.searchStr} placeholder = "Search for a game" onChange={(evt =>this.handleChange(evt))}/><br/>
+        <ul className='addGame'>
         {this.renderResults()}
+        </ul>
         <input type='submit' value='add game to collection' />
       </div>
     )

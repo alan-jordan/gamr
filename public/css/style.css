@@ -59,6 +59,19 @@ ul {
 .addUser {
 
 }
+.addGame {
+  background-color: white;
+}
+.addGameResult a:hover {
+  background-color: #ccc;
+  text-decoration: none;
+}
+.addGameResult a {
+  color: black;
+}
+.addGameResult a:active {
+  text-decoration: none;
+}
 
 
 /* Coolors Exported Palette - coolors.co/d55339-e3aa55-59adb7-f5d8d4-171717 */
