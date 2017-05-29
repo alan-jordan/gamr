@@ -62,8 +62,8 @@ ul {
 .addGame {
   background-color: white;
 }
-.addGameResult a:hover {
-  background-color: #ccc;
+.addGameResult li:hover {
+  background: #ccc !important;
   text-decoration: none;
 }
 .addGameResult a {

@@ -88,9 +88,9 @@ router.get('/games', (req, res) => {
     })
 })
 
-router.post('/games', (req, res) => {
-  db.addGame(req.body, req.app.get('connection'))
-    .then(() => {
+router.post('/users/:id/games/add', (req, res) => {
+  db.addGame(req.params.id, req.body, req.app.get('connection'))
+    .then((response) => {
       res.sendStatus(201)
     })
     .catch(function (err) {
@@ -108,15 +108,15 @@ router.delete('/games/:id/delete', (req, res) => {
   })
 })
 
-router.post('/users/:id/games/add', (req, res) => {
-  db.addGame(req.params.id, req.body, req.app.get('connection'))
-    .then((id) => {
-      res.redirect(`/user/${req.params.id}`)
-    })
-    .catch(function (err) {
-      res.status(500).send('DATABASE ERROR: ' + err.message)
-    })
-})
+// router.post('/users/:id/games/add', (req, res) => {
+//   db.addGame(req.params.id, req.body, req.app.get('connection'))
+//     .then((id) => {
+//       res.redirect(`/user/${req.params.id}`)
+//     })
+//     .catch(function (err) {
+//       res.status(500).send('DATABASE ERROR: ' + err.message)
+//     })
+// })
 
 router.get('/users/:id/games', (req, res) => {
   db.getUserGames(req.params.id, req.app.get('connection'))

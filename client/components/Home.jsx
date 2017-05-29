@@ -19,7 +19,7 @@ export default class Home extends React.Component {
     this.refreshUsers()
   }
 
-  renderUsers(err, users) {
+  renderUsers(users) {
     this.setState({
       users: users || []
     })

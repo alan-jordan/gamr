@@ -143,21 +143,21 @@ test('Get /games', (t) => {
     })
 })
 
-test('Post /games', (t) => {
-  return request(t.context.app)
-    .post('/api-v1/games')
-    .send({game_name: 'Mario Kart 8 Deluxe'})
-    .expect(201)
-    .then(() => {
-      return t.context.connection('games').select()
-    })
-    .then((games) => {
-      return new Promise((resolve, reject) => {
-        t.is(games.length, 4)
-        resolve()
-      })
-    })
-})
+// test('Post /games', (t) => {
+//   return request(t.context.app)
+//     .post('/api-v1/games')
+//     .send({game_name: 'Mario Kart 8 Deluxe'})
+//     .expect(201)
+//     .then(() => {
+//       return t.context.connection('games').select()
+//     })
+//     .then((games) => {
+//       return new Promise((resolve, reject) => {
+//         t.is(games.length, 4)
+//         resolve()
+//       })
+//     })
+// })
 
 test('Delete /games/:id/delete', (t) => {
   return request(t.context.app)
@@ -189,6 +189,22 @@ test('Get /users/:id:/games', (t) => {
       })
     })
 })
+
+// test('Post /users/:id/games/add', t => {
+//   return request(t.context.app)
+//     .post('/api-v1/users/99901/games/add')
+//     .send({
+//       user_id: 99901,
+//       apiGameId: 1234
+//     })
+//     .expect(201)
+//     .then((res) => {
+//       return new Promise((resolve, reject) => {
+//         t.is(res, 1)
+//         resolve()
+//       })
+//     })
+// })
 
 // External api
 test('Get /igdbapi/games/:id polls correctly', (t) => {

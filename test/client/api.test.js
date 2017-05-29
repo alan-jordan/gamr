@@ -87,3 +87,23 @@ test.cb('api.getGame', t => {
     t.end()
   })
 })
+
+// test.cb('api.addGame', t => {
+//   let scope = nock('http://localhost:80')
+//     .post('/api-v1/users/99901/games/add', {
+//       "user_id": 99901,
+//       "igdb_id": 1234
+//     })
+//     .reply(201, {message: 'add game working'})
+//
+//   let gameObj = {
+//     "user_id": 99901,
+//     "igdb_api": 1234
+//   }
+//
+//   api.addGame(gameObj, 99901, (actual) => {
+//     scope.done()
+//     t.is(actual.message, 'add game working')
+//     t.end()
+//   })
+// })

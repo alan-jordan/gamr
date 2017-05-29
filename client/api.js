@@ -57,6 +57,15 @@ export function getGame(game_id, callback) {
     })
 }
 
+export function addGame(gameObj, user_id, callback) {
+  request
+    .post(`/api-v1/users/${user_id}/games/add`)
+    .send(gameObj)
+    .end((err, res) => {
+      err ? callback(err) : callback(null)
+    })
+}
+
 
 export function getUserGames(user_id, callback)  {
   request

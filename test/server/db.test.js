@@ -122,21 +122,21 @@ test('getGames gets all the games', (t) => {
     })
 })
 
-test('addGame', (t) => {
-  const gameObj = {
-    game_name: 'Mario Kart 8 Deluxe',
-    game_publisher_id: 2,
-    game_release_date: '2017-04-28',
-    game_series_id: 3
-  }
-  return db.addGame(gameObj, t.context.connection)
-    .then((res) => {
-      return new Promise((resolve, reject) => {
-        t.is(res[0], 88804)
-        resolve()
-      })
-    })
-})
+// test('addGame', (t) => {
+//   const gameObj = {
+//     game_name: 'Mario Kart 8 Deluxe',
+//     game_publisher_id: 2,
+//     game_release_date: '2017-04-28',
+//     game_series_id: 3
+//   }
+//   return db.addGame(gameObj, t.context.connection)
+//     .then((res) => {
+//       return new Promise((resolve, reject) => {
+//         t.is(res[0], 88804)
+//         resolve()
+//       })
+//     })
+// })
 
 test('getUserGames gets the right number of games ', (t) => {
   return db.getUserGames(99901, t.context.connection)
@@ -159,24 +159,37 @@ test('getUserGames gets the right games', (t) => {
     })
 })
 
-
-
-test('addUserGames adds a game to the users collection', (t) => {
+test('addGame adds a game to the users collection', t => {
   let gameObj = {
-    game_name: 'Mario Kart 8 Deluxe',
-    game_publisher_id: 2,
-    date_purchased: "2017-04-25",
-    game_series: 4,
-    system_purchased_on: 1
+    user_id: 99901,
+    igdb_id: 1234
   }
-  return db.addUserGames(99901, gameObj, t.context.connection)
-    .then((userGamesAddedId) => {
-      return db.getUserGames(99901, t.context.connection)
-        .then((userGames) => {
-          return new Promise((resolve, reject) => {
-          t.is(userGames.length, 4)
-          resolve()
-        })
+  return db.addGame(99901, gameObj, t.context.connection)
+    .then((addedGameId) => {
+      return new Promise((resolve, reject) => {
+        t.is(addedGameId[0], 6)
+        resolve()
       })
     })
 })
+
+
+// test('addUserGames adds a game to the users collection', (t) => {
+//   let gameObj = {
+//     game_name: 'Mario Kart 8 Deluxe',
+//     game_publisher_id: 2,
+//     date_purchased: "2017-04-25",
+//     game_series: 4,
+//     system_purchased_on: 1
+//   }
+//   return db.addUserGames(99901, gameObj, t.context.connection)
+//     .then((userGamesAddedId) => {
+//       return db.getUserGames(99901, t.context.connection)
+//         .then((userGames) => {
+//           return new Promise((resolve, reject) => {
+//           t.is(userGames.length, 4)
+//           resolve()
+//         })
+//       })
+//     })
+// })

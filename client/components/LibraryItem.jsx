@@ -8,9 +8,7 @@ export default class LibraryItem extends React.Component {
     super(props)
     this.state = {
       game_id: props.game_id,
-      game: {
-        game: {}
-      },
+      game: {}
       }
     }
 
@@ -20,7 +18,8 @@ export default class LibraryItem extends React.Component {
 
     getGame() {
       api.getGame(this.state.game_id, (game) => {
-        this.setState({game})
+        this.setState({game: game.game})
+        console.log(this.state.game);
       })
     }
 
@@ -29,11 +28,11 @@ export default class LibraryItem extends React.Component {
     return (
       <div className="col-lg-3 col-md-4 col-xs-6 thumb libraryItem">
           <div className="thumbnail" >
-            <a href={`/game/${this.state.game.game_id}`}>
-              <img src={`/images/games/${this.state.game_id}.jpg`} className="img-responsive" alt={this.state.game.game.game_name} />
-              <p>{this.state.game.game.game_name}</p>
+            <a href={`/games/igdb/${this.state.game.igdb_id}`}>
+              <img src={`/images/games/${this.state.game_id}.jpg`} className="img-responsive" alt={this.state.game.game_name} />
+              <p>{this.state.game.game_name}</p>
             </a>
-            <a href="/user">Edit status</a>
+            <a href={`/games/igdb/${this.state.game.igdb_id}`}>Edit status</a>
           </div>
       </div>
     )

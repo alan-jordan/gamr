@@ -1646,6 +1646,7 @@ exports.addUser = addUser;
 exports.getUserLatestGame = getUserLatestGame;
 exports.getGames = getGames;
 exports.getGame = getGame;
+exports.addGame = addGame;
 exports.getUserGames = getUserGames;
 exports.searchStringIGDB = searchStringIGDB;
 
@@ -1694,6 +1695,12 @@ function getGames(callback) {
 function getGame(game_id, callback) {
   _superagent2.default.get('/api-v1/games/' + game_id).end(function (err, res) {
     err ? callback(err) : callback(res.body);
+  });
+}
+
+function addGame(gameObj, user_id, callback) {
+  _superagent2.default.post('/api-v1/users/' + user_id + '/games/add').send(gameObj).end(function (err, res) {
+    err ? callback(err) : callback(null);
   });
 }
 
@@ -11571,7 +11578,7 @@ var Home = function (_React$Component) {
     }
   }, {
     key: 'renderUsers',
-    value: function renderUsers(err, users) {
+    value: function renderUsers(users) {
       this.setState({
         users: users || []
       });
@@ -11873,9 +11880,7 @@ var LibraryItem = function (_React$Component) {
 
     _this.state = {
       game_id: props.game_id,
-      game: {
-        game: {}
-      }
+      game: {}
     };
     return _this;
   }
@@ -11891,7 +11896,8 @@ var LibraryItem = function (_React$Component) {
       var _this2 = this;
 
       api.getGame(this.state.game_id, function (game) {
-        _this2.setState({ game: game });
+        _this2.setState({ game: game.game });
+        console.log(_this2.state.game);
       });
     }
   }, {
@@ -11905,17 +11911,17 @@ var LibraryItem = function (_React$Component) {
           { className: 'thumbnail' },
           _react2.default.createElement(
             'a',
-            { href: '/game/' + this.state.game.game_id },
-            _react2.default.createElement('img', { src: '/images/games/' + this.state.game_id + '.jpg', className: 'img-responsive', alt: this.state.game.game.game_name }),
+            { href: '/games/igdb/' + this.state.game.igdb_id },
+            _react2.default.createElement('img', { src: '/images/games/' + this.state.game_id + '.jpg', className: 'img-responsive', alt: this.state.game.game_name }),
             _react2.default.createElement(
               'p',
               null,
-              this.state.game.game.game_name
+              this.state.game.game_name
             )
           ),
           _react2.default.createElement(
             'a',
-            { href: '/user' },
+            { href: '/games/igdb/' + this.state.game.igdb_id },
             'Edit status'
           )
         )
@@ -12087,7 +12093,6 @@ var SearchGame = function (_React$Component) {
     key: 'componentDidMount',
     value: function componentDidMount() {
       api.searchStringIGDB(null, this.renderResults.bind(this));
-      console.log(this.props);
     }
   }, {
     key: 'searchIgdb',
@@ -12108,7 +12113,12 @@ var SearchGame = function (_React$Component) {
     }
   }, {
     key: 'addGame',
-    value: function addGame(user_id, game_id) {}
+    value: function addGame(evt) {
+      console.log(evt.target.value);
+      api.addGame(evt.target.value, this.state.user_id, function (err) {
+        err ? console.log(err) : console.log("added");
+      });
+    }
   }, {
     key: 'renderResults',
     value: function renderResults() {
@@ -12120,12 +12130,10 @@ var SearchGame = function (_React$Component) {
         this.state.games.map(function (game, i) {
           return _react2.default.createElement(
             'li',
-            { key: i, className: 'addGameResult' },
-            _react2.default.createElement(
-              'a',
-              { href: '/#/users/' + _this3.state.user_id + '/library', onClick: _this3.addGame(_this3.state.user_id, game.id) },
-              game.name
-            )
+            { key: i, className: 'addGameResult', value: game.id, onClick: function onClick(evt) {
+                return _this3.addGame(evt);
+              } },
+            game.name
           );
         })
       );
@@ -12146,8 +12154,7 @@ var SearchGame = function (_React$Component) {
           'ul',
           { className: 'addGame' },
           this.renderResults()
-        ),
-        _react2.default.createElement('input', { type: 'submit', value: 'add game to collection' })
+        )
       );
     }
   }]);

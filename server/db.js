@@ -56,15 +56,23 @@ function getGames (connection) {
   return connection('games').select()
 }
 
-function addGame(gameObj, connection) {
-  return connection('games')
+// function addGame(gameObj, connection) {
+//   return connection('games')
+//     .insert({
+//     game_name: gameObj.game_name,
+//     game_publisher_id: gameObj.game_publisher_id,
+//     game_release_date: gameObj.game_release_date,
+//     game_series_id: gameObj.game_series_id
+//   })
+// }
+function addGame (user_id, gameObj, connection) {
+  return connection('userGames')
     .insert({
-    game_name: gameObj.game_name,
-    game_publisher_id: gameObj.game_publisher_id,
-    game_release_date: gameObj.game_release_date,
-    game_series_id: gameObj.game_series_id
-  })
+      igdb_id: gameObj.igdb_id,
+      user_id: gameObj.user_id
+    })
 }
+
 
 function deleteGame(id, connection) {
   return connection('games')
