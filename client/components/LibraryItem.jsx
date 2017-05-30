@@ -29,11 +29,11 @@ export default class LibraryItem extends React.Component {
   render() {
     return (
       <div className='libraryItem'>
-        <a href={`/games/igdb/${this.state.game_id}`}>
+        <a href={`#/games/${this.state.game_id}`}>
           {this.state.game.cover ? <img className='libraryImage' src={`https://images.igdb.com/igdb/image/upload/t_cover_big/${this.state.game.cover.cloudinary_id}.png`}/> : <p>loading image</p>}
           <p>{this.state.game.name}</p>
         </a>
-        <a href={`/games/igdb/${this.state.game_id}`}>Edit status</a>
+        <a href={`#/games/${this.state.game_id}`}>Edit status</a>
       </div>
     )
   }

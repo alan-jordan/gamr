@@ -85,7 +85,7 @@ export function searchStringIGDB(searchStr, callback) {
 
 export function getApiGame(game_id, callback) {
   request
-    .get(`http://localhost:3000/api-v1/igdbapi/games/${game_id}`)
+    .get(`/api-v1/igdbapi/games/${game_id}`)
     .end((err, res) => {
       err ? callback(err) : callback(res.body)
     })

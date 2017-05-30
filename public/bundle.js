@@ -1718,7 +1718,7 @@ function searchStringIGDB(searchStr, callback) {
 }
 
 function getApiGame(game_id, callback) {
-  _superagent2.default.get('http://localhost:3000/api-v1/igdbapi/games/' + game_id).end(function (err, res) {
+  _superagent2.default.get('/api-v1/igdbapi/games/' + game_id).end(function (err, res) {
     err ? callback(err) : callback(res.body);
   });
 }
@@ -11173,6 +11173,10 @@ var _Library = __webpack_require__(103);
 
 var _Library2 = _interopRequireDefault(_Library);
 
+var _GameView = __webpack_require__(242);
+
+var _GameView2 = _interopRequireDefault(_GameView);
+
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -11206,7 +11210,8 @@ var App = function (_React$Component) {
           { className: 'container' },
           _react2.default.createElement(_Header2.default, null),
           _react2.default.createElement(_reactRouterDom.Route, { path: '/', exact: true, component: _Home2.default }),
-          _react2.default.createElement(_reactRouterDom.Route, { path: '/users/:id/library', exact: true, component: _Library2.default })
+          _react2.default.createElement(_reactRouterDom.Route, { path: '/users/:id/library', exact: true, component: _Library2.default }),
+          _react2.default.createElement(_reactRouterDom.Route, { path: '/games/:id', exact: true, component: _GameView2.default })
         )
       );
     }
@@ -11913,7 +11918,7 @@ var LibraryItem = function (_React$Component) {
         { className: 'libraryItem' },
         _react2.default.createElement(
           'a',
-          { href: '/games/igdb/' + this.state.game_id },
+          { href: '#/games/' + this.state.game_id },
           this.state.game.cover ? _react2.default.createElement('img', { className: 'libraryImage', src: 'https://images.igdb.com/igdb/image/upload/t_cover_big/' + this.state.game.cover.cloudinary_id + '.png' }) : _react2.default.createElement(
             'p',
             null,
@@ -11927,7 +11932,7 @@ var LibraryItem = function (_React$Component) {
         ),
         _react2.default.createElement(
           'a',
-          { href: '/games/igdb/' + this.state.game_id },
+          { href: '#/games/' + this.state.game_id },
           'Edit status'
         )
       );
@@ -28576,6 +28581,202 @@ var valueEqual = function valueEqual(a, b) {
 };
 
 exports.default = valueEqual;
+
+/***/ }),
+/* 242 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(4);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRouterDom = __webpack_require__(14);
+
+var _api = __webpack_require__(16);
+
+var api = _interopRequireWildcard(_api);
+
+var _GamePage = __webpack_require__(243);
+
+var _GamePage2 = _interopRequireDefault(_GamePage);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Library = function (_React$Component) {
+  _inherits(Library, _React$Component);
+
+  function Library(props) {
+    _classCallCheck(this, Library);
+
+    var _this = _possibleConstructorReturn(this, (Library.__proto__ || Object.getPrototypeOf(Library)).call(this, props));
+
+    _this.state = {
+      game_id: props.match.params.id,
+      gameRes: {}
+    };
+    return _this;
+  }
+
+  _createClass(Library, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      api.getApiGame(this.state.game_id, function (game) {
+        var gameRes = game[0];
+        _this2.setState({ gameRes: gameRes });
+      });
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      console.log(this.state);
+      return _react2.default.createElement(
+        'div',
+        null,
+        this.state.gameRes.name && _react2.default.createElement(_GamePage2.default, { game: this.state.gameRes })
+      );
+    }
+  }]);
+
+  return Library;
+}(_react2.default.Component);
+
+exports.default = Library;
+
+/***/ }),
+/* 243 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(4);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRouterDom = __webpack_require__(14);
+
+var _api = __webpack_require__(16);
+
+var api = _interopRequireWildcard(_api);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var GamePage = function (_React$Component) {
+  _inherits(GamePage, _React$Component);
+
+  function GamePage(props) {
+    _classCallCheck(this, GamePage);
+
+    var _this = _possibleConstructorReturn(this, (GamePage.__proto__ || Object.getPrototypeOf(GamePage)).call(this, props));
+
+    _this.state = {
+      game: props.game
+    };
+    return _this;
+  }
+
+  _createClass(GamePage, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {}
+  }, {
+    key: 'render',
+    value: function render() {
+      console.log(this.state.game);
+      return _react2.default.createElement(
+        'div',
+        null,
+        _react2.default.createElement(
+          'h1',
+          null,
+          this.state.game.name
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'row' },
+          _react2.default.createElement(
+            'div',
+            { className: 'col-md-3' },
+            _react2.default.createElement('img', { src: 'https://images.igdb.com/igdb/image/upload/t_cover_big/' + this.state.game.cover.cloudinary_id + '.png' })
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'col-md-9' },
+            _react2.default.createElement(
+              'p',
+              null,
+              _react2.default.createElement(
+                'em',
+                null,
+                'Summary:'
+              ),
+              ' ',
+              this.state.game.summary
+            ),
+            _react2.default.createElement(
+              'p',
+              null,
+              _react2.default.createElement(
+                'em',
+                null,
+                'Storyline:'
+              ),
+              ' ',
+              this.state.game.storyline
+            ),
+            _react2.default.createElement(
+              'p',
+              null,
+              _react2.default.createElement(
+                'em',
+                null,
+                'Rating:'
+              ),
+              ' ',
+              this.state.game.aggregated_rating
+            )
+          )
+        )
+      );
+    }
+  }]);
+
+  return GamePage;
+}(_react2.default.Component);
+
+exports.default = GamePage;
 
 /***/ })
 /******/ ]);
