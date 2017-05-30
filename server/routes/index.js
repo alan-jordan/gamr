@@ -89,7 +89,7 @@ router.get('/games', (req, res) => {
 })
 
 router.post('/users/:id/games/add', (req, res) => {
-  db.addGame(req.params.id, req.body, req.app.get('connection'))
+  db.addGame(req.body, req.params.id, req.app.get('connection'))
     .then((response) => {
       res.sendStatus(201)
     })
@@ -165,5 +165,6 @@ router.get('/igdbapi/games/search/:searchstr', (req, res) => {
       }
     })
 })
+
 
 module.exports = router

@@ -57,10 +57,10 @@ export function getGame(game_id, callback) {
     })
 }
 
-export function addGame(gameObj, user_id, callback) {
+export function addGame(igdb_id, user_id, callback) {
   request
     .post(`/api-v1/users/${user_id}/games/add`)
-    .send(gameObj)
+    .send({igdb_id})
     .end((err, res) => {
       err ? callback(err) : callback(null)
     })
@@ -78,6 +78,14 @@ export function getUserGames(user_id, callback)  {
 export function searchStringIGDB(searchStr, callback) {
   request
     .get(`/api-v1/igdbapi/games/search/${searchStr}`)
+    .end((err, res) => {
+      err ? callback(err) : callback(res.body)
+    })
+}
+
+export function getApiGame(game_id, callback) {
+  request
+    .get(`http://localhost:3000/api-v1/igdbapi/games/${game_id}`)
     .end((err, res) => {
       err ? callback(err) : callback(res.body)
     })

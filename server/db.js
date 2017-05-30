@@ -65,11 +65,12 @@ function getGames (connection) {
 //     game_series_id: gameObj.game_series_id
 //   })
 // }
-function addGame (user_id, gameObj, connection) {
+function addGame (obj, user_id, connection) {
+  console.log(obj);
   return connection('userGames')
     .insert({
-      igdb_id: gameObj.igdb_id,
-      user_id: gameObj.user_id
+      igdb_id: obj.igdb_id,
+      user_id: user_id
     })
 }
 
@@ -83,7 +84,7 @@ function deleteGame(id, connection) {
 function getUserGames(user_id, connection) {
   return connection('userGames').select('*', 'userGames.id as userGames_id')
     .where('user_id', user_id)
-    .join('games', "games.id","=","game_id")
+    // .join('games', "games.id","=","game_id")
 }
 
 function addUserGames(user_id, gameObj, connection) {

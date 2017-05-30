@@ -1649,6 +1649,7 @@ exports.getGame = getGame;
 exports.addGame = addGame;
 exports.getUserGames = getUserGames;
 exports.searchStringIGDB = searchStringIGDB;
+exports.getApiGame = getApiGame;
 
 var _superagent = __webpack_require__(235);
 
@@ -1698,8 +1699,8 @@ function getGame(game_id, callback) {
   });
 }
 
-function addGame(gameObj, user_id, callback) {
-  _superagent2.default.post('/api-v1/users/' + user_id + '/games/add').send(gameObj).end(function (err, res) {
+function addGame(igdb_id, user_id, callback) {
+  _superagent2.default.post('/api-v1/users/' + user_id + '/games/add').send({ igdb_id: igdb_id }).end(function (err, res) {
     err ? callback(err) : callback(null);
   });
 }
@@ -1712,6 +1713,12 @@ function getUserGames(user_id, callback) {
 
 function searchStringIGDB(searchStr, callback) {
   _superagent2.default.get('/api-v1/igdbapi/games/search/' + searchStr).end(function (err, res) {
+    err ? callback(err) : callback(res.body);
+  });
+}
+
+function getApiGame(game_id, callback) {
+  _superagent2.default.get('http://localhost:3000/api-v1/igdbapi/games/' + game_id).end(function (err, res) {
     err ? callback(err) : callback(res.body);
   });
 }
@@ -11770,7 +11777,9 @@ var Library = function (_React$Component) {
     }
   }, {
     key: 'addGame',
-    value: function addGame() {}
+    value: function addGame() {
+      console.log("test");
+    }
   }, {
     key: 'render',
     value: function render() {
@@ -11824,7 +11833,7 @@ var Library = function (_React$Component) {
             'div',
             { className: 'libraryHeader' },
             this.state.userGames.games.map(function (game) {
-              return _react2.default.createElement(_LibraryItem2.default, { game_id: game.id });
+              return _react2.default.createElement(_LibraryItem2.default, { game_id: game.igdb_id });
             })
           )
         )
@@ -11889,15 +11898,15 @@ var LibraryItem = function (_React$Component) {
     key: 'componentDidMount',
     value: function componentDidMount() {
       this.getGame();
+      this.getCoverArt;
     }
   }, {
     key: 'getGame',
     value: function getGame() {
       var _this2 = this;
 
-      api.getGame(this.state.game_id, function (game) {
-        _this2.setState({ game: game.game });
-        console.log(_this2.state.game);
+      api.getApiGame(this.state.game_id, function (game) {
+        _this2.setState({ game: game[0] });
       });
     }
   }, {
@@ -11911,17 +11920,21 @@ var LibraryItem = function (_React$Component) {
           { className: 'thumbnail' },
           _react2.default.createElement(
             'a',
-            { href: '/games/igdb/' + this.state.game.igdb_id },
-            _react2.default.createElement('img', { src: '/images/games/' + this.state.game_id + '.jpg', className: 'img-responsive', alt: this.state.game.game_name }),
+            { href: '/games/igdb/' + this.state.game_id },
+            this.state.game.cover ? _react2.default.createElement('img', { src: 'https://images.igdb.com/igdb/image/upload/t_cover_big/' + this.state.game.cover.cloudinary_id + '.png' }) : _react2.default.createElement(
+              'p',
+              null,
+              'loading image'
+            ),
             _react2.default.createElement(
               'p',
               null,
-              this.state.game.game_name
+              this.state.game.name
             )
           ),
           _react2.default.createElement(
             'a',
-            { href: '/games/igdb/' + this.state.game.igdb_id },
+            { href: '/games/igdb/' + this.state.game_id },
             'Edit status'
           )
         )
@@ -12114,7 +12127,6 @@ var SearchGame = function (_React$Component) {
   }, {
     key: 'addGame',
     value: function addGame(evt) {
-      console.log(evt.target.value);
       api.addGame(evt.target.value, this.state.user_id, function (err) {
         err ? console.log(err) : console.log("added");
       });

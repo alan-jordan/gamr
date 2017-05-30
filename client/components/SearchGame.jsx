@@ -33,7 +33,6 @@ export default class SearchGame extends React.Component {
     }
 
     addGame(evt) {
-      console.log(evt.target.value)
       api.addGame(evt.target.value, this.state.user_id, (err) => {
         err ? console.log(err) : console.log("added");
       })

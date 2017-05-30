@@ -44,7 +44,7 @@ export default class Library extends React.Component {
     this.setState({addFormVisible: false})
   }
   addGame() {
-
+    console.log("test");
   }
 
   render() {
@@ -64,7 +64,7 @@ export default class Library extends React.Component {
         </div>
         <div className="col-md-10">
           <div className="libraryHeader">
-            {this.state.userGames.games.map((game) => <LibraryItem game_id={game.id}/>)}
+            {this.state.userGames.games.map((game) => <LibraryItem game_id={game.igdb_id}/>)}
           </div>
       </div>
     </div>
