@@ -5,7 +5,7 @@ export default (props) => {
   return (
     <div>
       <ul>
-      {props.games.map((game, i) => {
+      {props.games && props.games.map((game, i) => {
         return (<li key={i}><a href={game.id} target='_blank'>{game.name}</a></li>)
       })}
       </ul>

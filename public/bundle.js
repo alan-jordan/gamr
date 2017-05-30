@@ -12032,7 +12032,7 @@ exports.default = function (props) {
     _react2.default.createElement(
       'ul',
       null,
-      props.games.map(function (game, i) {
+      props.games && props.games.map(function (game, i) {
         return _react2.default.createElement(
           'li',
           { key: i },
@@ -12139,7 +12139,7 @@ var SearchGame = function (_React$Component) {
       return _react2.default.createElement(
         'div',
         null,
-        this.state.games.map(function (game, i) {
+        this.state.games && this.state.games.map(function (game, i) {
           return _react2.default.createElement(
             'li',
             { key: i, className: 'addGameResult', value: game.id, onClick: function onClick(evt) {

@@ -41,7 +41,7 @@ export default class SearchGame extends React.Component {
     renderResults() {
       return(
         <div>
-          {this.state.games.map((game, i) => {
+          {this.state.games && this.state.games.map((game, i) => {
             return <li key={i} className='addGameResult' value={game.id} onClick={(evt => this.addGame(evt))}>{game.name}</li>
           })}
         </div>
