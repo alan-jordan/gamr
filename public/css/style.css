@@ -1,7 +1,10 @@
 body {
   background-color: #2B2B2B;
-  color: #ffffff;
+  color: #171717;
   font-family: 'Roboto', sans-serif;
+}
+p,h2,li {
+  color: #fff;
 }
 
 h1 {
