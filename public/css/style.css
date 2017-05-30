@@ -3,7 +3,7 @@ body {
   color: #171717;
   font-family: 'Roboto', sans-serif;
 }
-p,h2,li {
+p,h2 {
   color: #fff;
 }
 
@@ -16,6 +16,9 @@ h1 {
 	margin-bottom: 72px;
 	max-width: 700px;
 	position: relative;
+}
+.libraryUser {
+  color: #fff;
 }
 
 h1:after {
@@ -125,6 +128,7 @@ input[type=text] {
   background-color: #353634;
   padding: 5px;
   font-weight: boldest;
+  margin-bottom: 5px;
 }
 .libraryItem a {
   color: white;
