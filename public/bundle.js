@@ -11921,7 +11921,7 @@ var LibraryItem = function (_React$Component) {
           _react2.default.createElement(
             'a',
             { href: '/games/igdb/' + this.state.game_id },
-            this.state.game.cover ? _react2.default.createElement('img', { src: 'https://images.igdb.com/igdb/image/upload/t_cover_big/' + this.state.game.cover.cloudinary_id + '.png' }) : _react2.default.createElement(
+            this.state.game.cover ? _react2.default.createElement('img', { className: 'libraryImage', src: 'https://images.igdb.com/igdb/image/upload/t_cover_big/' + this.state.game.cover.cloudinary_id + '.png' }) : _react2.default.createElement(
               'p',
               null,
               'loading image'
