@@ -56,9 +56,14 @@ ul {
   padding: 5px 0 5px 0;
 }
 
-.addUser {
-
+input[type=text] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
 }
+
+
 .addGame {
   background-color: white;
 }

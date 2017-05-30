@@ -28,7 +28,7 @@ export default class AddUser extends React.Component {
   render() {
     return(
       <div className='addUserForm'>
-        <form onSubmit={(evt) => this.handleSubmit(evt)}>
+        <form className='addUserForm' onSubmit={(evt) => this.handleSubmit(evt)}>
           <label>Username: </label>
           <input type='text' name='user_username' value={this.state.user_username} placeholder = "Username" onChange={(evt =>this.handleChange(evt))}/><br/>
           <label>First name: </label>

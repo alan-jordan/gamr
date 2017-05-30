@@ -11425,7 +11425,7 @@ var AddUser = function (_React$Component) {
         { className: 'addUserForm' },
         _react2.default.createElement(
           'form',
-          { onSubmit: function onSubmit(evt) {
+          { className: 'addUserForm', onSubmit: function onSubmit(evt) {
               return _this2.handleSubmit(evt);
             } },
           _react2.default.createElement(
