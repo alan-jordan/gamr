@@ -1,8 +1,37 @@
 body {
-  background-color: #59ADB7;
-  color: #171717;
+  background-color: #2B2B2B;
+  color: #ffffff;
   font-family: 'Roboto', sans-serif;
 }
+
+h1 {
+	color: #E6324B;
+	font-family: 'Roboto';
+	font-size: 70px;
+	font-weight: 300;
+	line-height: 78px;
+	margin-bottom: 72px;
+	max-width: 700px;
+	position: relative;
+}
+
+h1:after {
+	background: #D55339;
+	content: '';
+	display: block;
+	height: 6px;
+	margin-top: 24px;
+}
+
+a {
+	color: #ffffff;	font-style: italic;
+}
+
+a:hover {
+	color: #bbb;
+}
+
+
 ul {
   list-style-type: none;
   margin: 0;
@@ -13,7 +42,7 @@ ul {
 }
 
 .header {
-  background-color: #D55339;
+  background-color: #E6324B;
   border-radius: 5px;
   margin-top: 5px;
 }
@@ -22,10 +51,10 @@ ul {
   font-size: 34pt;
 }
 .header a:visited{
-  color: #E3AA55;
+  color: #353634;
 }
 .header a:hover {
-  color: #59ADB7;
+  color: #fff;
 }
 .gameInfo {
   background-color: #222;
@@ -49,7 +78,11 @@ ul {
   margin: 5px 0 5px 0;
   padding: 5px 0 5px 0;
   border-style: solid;
-  background-color: #D55339;
+  background-color: #353634;
+  color: #2B2B2B;
+}
+.userInfo li {
+  color: #fff;
 }
 
 .userDetails {
@@ -77,6 +110,23 @@ input[type=text] {
 .addGameResult a:active {
   text-decoration: none;
 }
+
+.library {
+  display: flex;
+  flex-direction: row;
+  flex-flow: row wrap;
+}
+.libraryItem {
+  margin: auto;
+  flex-basis: auto;
+  background-color: #353634;
+  padding: 5px;
+  font-weight: boldest;
+}
+.libraryItem a {
+  color: white;
+}
+
 
 
 /* Coolors Exported Palette - coolors.co/d55339-e3aa55-59adb7-f5d8d4-171717 */

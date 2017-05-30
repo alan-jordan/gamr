@@ -49,8 +49,8 @@ export default class Library extends React.Component {
 
   render() {
     return (
-      <div className="row">
-        <div className="col-md-2">
+      <div>
+        <div>
           <ul>
             <li>Username: {this.state.user.user_username}</li>
             <li>Real name: {this.state.user.user_first_name} {this.state.user.user_surname}</li>
@@ -62,12 +62,10 @@ export default class Library extends React.Component {
             />}
           </ul>
         </div>
-        <div className="col-md-10">
-          <div className="libraryHeader">
-            {this.state.userGames.games.map((game) => <LibraryItem game_id={game.igdb_id}/>)}
-          </div>
+        <div className="library">
+          {this.state.userGames.games.map((game) => <LibraryItem game_id={game.igdb_id}/>)}
+        </div>
       </div>
-    </div>
     )
   }
 }

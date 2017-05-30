@@ -11787,10 +11787,10 @@ var Library = function (_React$Component) {
 
       return _react2.default.createElement(
         'div',
-        { className: 'row' },
+        null,
         _react2.default.createElement(
           'div',
-          { className: 'col-md-2' },
+          null,
           _react2.default.createElement(
             'ul',
             null,
@@ -11828,14 +11828,10 @@ var Library = function (_React$Component) {
         ),
         _react2.default.createElement(
           'div',
-          { className: 'col-md-10' },
-          _react2.default.createElement(
-            'div',
-            { className: 'libraryHeader' },
-            this.state.userGames.games.map(function (game) {
-              return _react2.default.createElement(_LibraryItem2.default, { game_id: game.igdb_id });
-            })
-          )
+          { className: 'library' },
+          this.state.userGames.games.map(function (game) {
+            return _react2.default.createElement(_LibraryItem2.default, { game_id: game.igdb_id });
+          })
         )
       );
     }
@@ -11914,29 +11910,25 @@ var LibraryItem = function (_React$Component) {
     value: function render() {
       return _react2.default.createElement(
         'div',
-        { className: 'col-lg-3 col-md-4 col-xs-6 thumb libraryItem' },
+        { className: 'libraryItem' },
         _react2.default.createElement(
-          'div',
-          { className: 'thumbnail' },
-          _react2.default.createElement(
-            'a',
-            { href: '/games/igdb/' + this.state.game_id },
-            this.state.game.cover ? _react2.default.createElement('img', { className: 'libraryImage', src: 'https://images.igdb.com/igdb/image/upload/t_cover_big/' + this.state.game.cover.cloudinary_id + '.png' }) : _react2.default.createElement(
-              'p',
-              null,
-              'loading image'
-            ),
-            _react2.default.createElement(
-              'p',
-              null,
-              this.state.game.name
-            )
+          'a',
+          { href: '/games/igdb/' + this.state.game_id },
+          this.state.game.cover ? _react2.default.createElement('img', { className: 'libraryImage', src: 'https://images.igdb.com/igdb/image/upload/t_cover_big/' + this.state.game.cover.cloudinary_id + '.png' }) : _react2.default.createElement(
+            'p',
+            null,
+            'loading image'
           ),
           _react2.default.createElement(
-            'a',
-            { href: '/games/igdb/' + this.state.game_id },
-            'Edit status'
+            'p',
+            null,
+            this.state.game.name
           )
+        ),
+        _react2.default.createElement(
+          'a',
+          { href: '/games/igdb/' + this.state.game_id },
+          'Edit status'
         )
       );
     }
