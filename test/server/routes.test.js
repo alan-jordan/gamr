@@ -51,7 +51,7 @@ test('Get /users/:id/latestgame', t => {
     .expect(200)
     .then((res) => {
       return new Promise((resolve, reject) => {
-        t.is(res.body.game_name, 'Super Mario Bros')
+        t.is(res.body.igdb_id, 358)
         resolve()
       })
     })
@@ -182,9 +182,9 @@ test('Get /users/:id:/games', (t) => {
     .then((res) => {
       return new Promise((resolve, reject) => {
         const gamesJSON = JSON.parse(res.text)
-        t.is(gamesJSON.games[1].game_name, "Super Mario Bros")
-        t.is(gamesJSON.games[0].game_release_date, "2017-03-03")
-        t.is(gamesJSON.games[2].game_id, 88803)
+        t.is(gamesJSON.games[0].igdb_id, 7346)
+        t.is(gamesJSON.games[1].igdb_id, 358)
+        t.is(gamesJSON.games[2].igdb_id, 3192)
         resolve()
       })
     })

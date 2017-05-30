@@ -59,8 +59,7 @@ test('getUserLatestGame gets the right game', t => {
   return db.getUserLatestGame(99901, t.context.connection)
     .then((res) => {
       return new Promise((resolve, reject) => {
-        t.is(res.game_id, 88801)
-        t.is(res.game_name, 'The Legend of Zelda: Breath of the Wild')
+        t.is(res.igdb_id, 7346)
         resolve()
       })
     })
@@ -152,7 +151,7 @@ test('getUserGames gets the right games', (t) => {
   return db.getUserGames(99901, t.context.connection)
     .then((result) => {
       return new Promise((resolve, reject) => {
-        t.is(result[0].game_name, "The Legend of Zelda: Breath of the Wild")
+        t.is(result[0].igdb_id, 7346)
         t.is(result.length, 3)
         resolve()
       })

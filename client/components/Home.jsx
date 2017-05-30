@@ -68,7 +68,8 @@ export default class Home extends React.Component {
               saveCallback={this.saveUser.bind(this)}
               cancelCallback={this.addFormInvisible.bind(this)}
               />}
-            {this.state.users.map(user => <UserInfo user_id={user.id}/>)}
+              {}
+            {this.state.users.length > 0 && this.state.users.map(user => <UserInfo user_id={user.id}/>)}
           </div>
         </div>
       </div>

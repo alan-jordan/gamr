@@ -11666,7 +11666,7 @@ var Home = function (_React$Component) {
               saveCallback: this.saveUser.bind(this),
               cancelCallback: this.addFormInvisible.bind(this)
             }),
-            this.state.users.map(function (user) {
+            this.state.users.length > 0 && this.state.users.map(function (user) {
               return _react2.default.createElement(_UserInfo2.default, { user_id: user.id });
             })
           )

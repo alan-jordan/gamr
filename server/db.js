@@ -66,7 +66,6 @@ function getGames (connection) {
 //   })
 // }
 function addGame (obj, user_id, connection) {
-  console.log(obj);
   return connection('userGames')
     .insert({
       igdb_id: obj.igdb_id,
