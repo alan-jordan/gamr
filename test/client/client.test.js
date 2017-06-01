@@ -27,4 +27,3 @@ test('Renders add form when clicked', t => {
   t.is(wrapper.find('.addUserForm').exists(), false)
   wrapper.find('#show-add-link').simulate('click')
   t.is(wrapper.find('.addUserForm').exists(), true)
-})

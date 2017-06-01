@@ -18,6 +18,7 @@ export default class LibraryItem extends React.Component {
     }
 
     getGame() {
+      //you don't want items inside a map hitting the api, pass game data in props
       api.getApiGame(this.state.game_id, (game) => {
         this.setState({game: game[0]})
       })

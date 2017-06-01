@@ -4,6 +4,7 @@ var request = require('superagent')
 
 var db = require('../db')
 
+//you don't want to store your api keys in github - checkout dotenv npm package
 var mashapeKey = '8XrLHLkRxlmshascF7n3mXc7CtoVp1RQN3Yjsn4ISq8ddFmTDT'
 var url = 'https://igdbcom-internet-game-database-v1.p.mashape.com'
 
@@ -138,6 +139,7 @@ router.get('/users/:id/latestgame', (req, res) => {
     })
 })
 
+//the routes file is getting a little big, I would consider moving these to a separate routes file
 router.get('/igdbapi/games/:id', (req, res) => {
   request
     .get(`${url}/games/${req.params.id}?fields=*`)
