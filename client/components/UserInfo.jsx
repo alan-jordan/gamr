@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom'
 
 import * as api from '../api'
 
+//a good rule is that anything inside a map shouldn't call an api directly and instead be given the data it needs from props
 export default class UserInfo extends React.Component {
   constructor(props) {
     super(props)

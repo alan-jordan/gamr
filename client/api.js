@@ -1,9 +1,14 @@
 import request from 'superagent'
 
+//one stretch feature might be to put error handling in so that your react app behaves
+//gracefully if the api goes offline. Try testing the user experience of what happens when you turn your wifi off
+
 export function getUsers(callback) {
   request
     .get('/api-v1/users')
     .end((err, res) => {
+      //how will the code calling this function know that you have sent an error instead of a res.body?
+      //you probably want callback (err, res.body) so it can know things worked if the first arg is null
       err ? callback(err) : callback(res.body)
     })
 }

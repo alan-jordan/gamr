@@ -33,6 +33,8 @@ export default class SearchGame extends React.Component {
     }
 
     addGame(evt) {
+      //at the moment when you add the game the ui doesn't respond
+      //try passing in a callback which you call here so the parent ui can refresh
       api.addGame(evt.target.value, this.state.user_id, (err) => {
         err ? console.log(err) : console.log("added");
       })

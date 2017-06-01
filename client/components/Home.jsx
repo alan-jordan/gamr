@@ -5,6 +5,8 @@ import * as api from '../api'
 import UserInfo from './UserInfo'
 import AddUser from './AddUser'
 
+
+
 export default class Home extends React.Component {
   constructor(props) {
     super(props)
@@ -69,6 +71,10 @@ export default class Home extends React.Component {
               cancelCallback={this.addFormInvisible.bind(this)}
               />}
               {}
+              {
+                //at the moment your home page hits your api 6 times because each UserInfo component calls it individually
+                //try getting all the info for the new users in one go and passing them down as props to userInfo
+              }
             {this.state.users.length > 0 && this.state.users.map(user => <UserInfo user_id={user.id}/>)}
           </div>
         </div>

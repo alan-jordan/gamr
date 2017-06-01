@@ -42,6 +42,8 @@ function updateUser(id, userObj, connection) {
     .update(userObj)
 }
 
+//watch out for orphaned data in the userGames table
+//- either use a cascade delete in your migration or delete it manually here
 function deleteUser(id, connection) {
   return connection('users')
     .where('id', id)

@@ -6,6 +6,9 @@ var createServer = require('../../server/server')
 var configureDatabase = require('./helpers/database-config')
 configureDatabase(test, createServer)
 
+//these are just testing the happy path when things work well
+//maybe try some tests for what happens if the igdb api is down
+
 //USERS
 test('GET /users/:id', (t) => {
   return request(t.context.app)
@@ -57,6 +60,7 @@ test('Get /users/:id/latestgame', t => {
     })
 })
 
+//check what happens to userGames
 test('Delete /users/:id/delete', (t) => {
   return request(t.context.app)
     .delete('/api-v1/users/99901/delete')
@@ -205,6 +209,9 @@ test('Get /users/:id:/games', (t) => {
 //       })
 //     })
 // })
+
+// In general I wouldn't write a test for an external api
+// and would always nock any http request that is outside of this app
 
 // External api
 test('Get /igdbapi/games/:id polls correctly', (t) => {
