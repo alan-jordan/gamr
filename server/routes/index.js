@@ -4,7 +4,6 @@ var request = require('superagent')
 
 var db = require('../db')
 
-var mashapeKey = '8XrLHLkRxlmshascF7n3mXc7CtoVp1RQN3Yjsn4ISq8ddFmTDT'
 var url = 'https://igdbcom-internet-game-database-v1.p.mashape.com'
 
 

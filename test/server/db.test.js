@@ -13,7 +13,7 @@ test('addUser adds a user', (t) => {
     user_surname: "Drumpf",
     user_dob: "1946-06-14"
   }
-  return db.addUser(addedUser, t.context.connection)
+  return db.addUser(addedUser, t.context.db)
     .then((res) => {
       return new Promise((resolve, reject) => {
         t.is(res[0], 99904)

@@ -8,11 +8,13 @@ configureDatabase(test, createServer)
 
 //USERS
 test('GET /users/:id', (t) => {
+  console.log(t.context.app);
   return request(t.context.app)
     .get('/api-v1/users/99901')
     .expect(200)
     .then((res) => {
       return new Promise((resolve, reject) => {
+        console.log(res);
         t.is(res.body.id, 99901)
         t.is(res.body.user_username, 'eljordy')
         t.is(res.body.user_dob, '1982-04-22')
