@@ -2,7 +2,6 @@ var request = require('superagent')
 var igdb = require('igdb-api-node')
 
 var url = 'https://igdbcom-internet-game-database-v1.p.mashape.com'
-global.mashapeKey = '8XrLHLkRxlmshascF7n3mXc7CtoVp1RQN3Yjsn4ISq8ddFmTDT'
 
 function searchGames(callback, searchStr) {
   request
@@ -20,7 +19,7 @@ function searchGames(callback, searchStr) {
 
 function displayGame(callback, id) {
   request
-    .get(`${url}/games/${id}?fields=cover`)
+    .get(`${url}/games/${id}?fields=*`)
     .set('X-Mashape-Key', mashapeKey)
     .set('Accept', 'application/json')
     .end(function(err, res) {
@@ -32,4 +31,4 @@ function displayGame(callback, id) {
     })
 }
 
-searchGames(console.log, 'Sonic the Hedgehog')
+displayGame(console.log, 16)
